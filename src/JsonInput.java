@@ -4,9 +4,10 @@ import org.example.entities.characters.Character;
 import org.example.entities.characters.Mage;
 import org.example.entities.characters.Rogue;
 import org.example.entities.characters.Warrior;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.ContentHandler;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +18,7 @@ import java.util.TreeSet;
 
 public class JsonInput {
     public static ArrayList<Account> deserializeAccounts() {
-        String accountPath = "C:\\Users\\.........\\tema1\\accounts.json";
+        String accountPath = "/Users/sebitopa/Projects/AN2/OOP/League of Warriors/src/accounts.json";
         try {
             String content = new String((Files.readAllBytes(Paths.get(accountPath))));
             JSONObject obj = new JSONObject(content);
@@ -88,5 +89,9 @@ public class JsonInput {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        deserializeAccounts();
     }
 }
