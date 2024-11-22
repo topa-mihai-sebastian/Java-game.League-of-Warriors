@@ -3,11 +3,18 @@ public class Cell {
 	boolean visited;
 	Entity.CellEntityType type;
 	
+	public Cell() {
+		this.Ox = 0;
+		this.Oy = 0;
+		this.type = Entity.CellEntityType.VOID; // Sau orice tip implicit dorești
+		this.visited = false;
+	}
+
 	public Cell(int Ox, int Oy, Entity.CellEntityType type) {
         this.Ox = Ox;
         this.Oy = Oy;
         this.type = type;
-        this.visited = false; // Implicit, celula nu este vizitată
+        this.visited = false;
     }
 
     // Getteri și setteri pentru câmpuri

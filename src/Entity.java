@@ -1,7 +1,7 @@
-public class Entity {
-	int currentMana;
+public abstract class Entity {
+	private int currentMana;
 	final int maxMana = 100;
-	int currentHealth;
+	private int currentHealth;
 	final int maxHealth = 1000;
 
 	public enum CellEntityType {
@@ -10,6 +10,19 @@ public class Entity {
 		ENEMY,
 		SANCTUARY,
 		PORTAL
+	}
+
+	public int getCurrentMana() {
+		return currentMana;
+	}
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
+	public void getDamage(int damage) {
+		this.currentHealth -= damage;
+	}
+	public void useMana(int mana) {
+		this.currentMana -= mana;
 	}
 	public void lifeRegen(int newHealth) {
 		if(newHealth > maxHealth) {
@@ -23,4 +36,5 @@ public class Entity {
 		}
 		this.currentMana = newMana;
 	}
+	// TODO: metoda pentru folosirea de abilitati 
 }
