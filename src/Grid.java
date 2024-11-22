@@ -28,7 +28,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Grid grid = new Grid(width, height);
 		// sanctuare, inamici, portal
 		grid.addEntity(Entity.CellEntityType.SANCTUARY, 2);
-        grid.addEntity(Entity.CellEntityType.ENEMY, 4);
+        grid.addEntity(Entity.CellEntityType.ENEMY, 5);
         grid.addEntity(Entity.CellEntityType.PORTAL, 1);
 
 		// punem jucatorul pe o pozitie aleatoare
@@ -93,5 +93,39 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			throw new Exception("You can't go west from here!");
 		}
 		currentCell = getCell(row, col + 1);
+	}
+
+	public void printGrid() {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Cell cell = getCell(i, j);
+                switch (cell.getType()) {
+                    case PLAYER:
+                        System.out.print("P ");
+                        break;
+                    case SANCTUARY:
+                        System.out.print("S ");
+                        break;
+                    case ENEMY:
+                        System.out.print("E ");
+                        break;
+                    case PORTAL:
+                        System.out.print("O ");
+                        break;
+                    case VOID:
+                    default:
+                        System.out.print(". ");
+                        break;
+                }
+            }
+            System.out.println();
+        }
+    }
+	public static void main(String[] args) {
+		// testare
+		Grid grid = Grid.createTheGrid(10, 10);
+
+        // Afișează grila
+        grid.printGrid();
 	}
 }
