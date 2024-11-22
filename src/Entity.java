@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Entity {
 	private int currentMana;
 	final int maxMana = 100;
@@ -11,7 +13,12 @@ public abstract class Entity {
 		SANCTUARY,
 		PORTAL
 	}
-
+	public void setCurrentHealth(int health) {
+		this.currentHealth = health;
+	}
+	public void setCurrentMana(int mana) {
+		this.currentMana = mana;
+	}
 	public int getCurrentMana() {
 		return currentMana;
 	}
@@ -36,5 +43,19 @@ public abstract class Entity {
 		}
 		this.currentMana = newMana;
 	}
+	public void receiveDamage(int damage) {
+		Random rd = new Random();
+		boolean halfDamage = rd.nextBoolean(); // 1/2
+		if(halfDamage) {
+			damage /= 2;
+		}
+		this.currentHealth -= damage;
+		if(this.currentHealth < 0) {
+			this.currentHealth = 0;
+		}
+	}
+	public abstract int getDamage();
+	public abstract void useAbility(CellEntityType abilityType, Character enemy);
+
 	// TODO: metoda pentru folosirea de abilitati 
 }

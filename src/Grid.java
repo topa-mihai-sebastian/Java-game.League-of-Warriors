@@ -14,11 +14,15 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
         for (int i = 0; i < height; i++) {
             ArrayList<Cell> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
-                row.add(new Cell()); // Assuming Cell has a default constructor 
+                row.add(new Cell()); // default 
             }
             this.add(row);
         }
     }
+	public static Grid createTheGrid(int width, int height) {
+		return new Grid(width, height);
+	}
+
 	public Cell getCell(int rowIndex, int colIndex) {
         return this.get(rowIndex).get(colIndex);
     }

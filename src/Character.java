@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Character extends Entity{
 	public String name;
 	private int XP;
@@ -28,18 +30,23 @@ public class Character extends Entity{
 	public String getName() {
 		return name;
 	}
+	
 	public int getXP() {
 		return XP;
 	}
+	
 	public int getLevel() {
 		return level;
 	}
+	
 	public int getStrength() {
 		return Strength;
 	}
+	
 	public int getCharisma() {
 		return Charisma;
 	}
+	
 	public int getDexterity() {
 		return Dexterity;
 	}
@@ -47,19 +54,39 @@ public class Character extends Entity{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public void setXP(int newXP) {
 		this.XP = newXP;
 	}
+	
 	public void setCharisma(int Charisma) {
 		this.Charisma = Charisma;
 	}
+	
 	public void setStrength(int Strength) {
         this.Strength = Strength;
     }
+	
 	public void setLevel(int level) {
         this.level = level;
     }
+
 	public void setDexterity(int Dexterity) {
         this.Dexterity = Dexterity;
     }
+
+	@Override
+	public int getDamage() {
+		Random rd = new Random();
+		boolean doubleDamage = rd.nextBoolean(); // 1/2
+		int baseDamage = Strength * 2; // formula de calculare a damage-ului de baza
+		if(doubleDamage) {
+			baseDamage = baseDamage * 2;
+		}
+		return baseDamage;
+	}
+	@Override
+	public void useAbility(CellEntityType abilityType, Character enemy) {
+		
+	}
 }
