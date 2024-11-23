@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Grid extends ArrayList<ArrayList<Cell>>{
 	private int width, height;
-    private Character currentCharacter;
+    //private Character currentCharacter;
     private Cell currentCell;
 
 	private Grid(int width, int height) {
@@ -35,6 +34,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		int playerRow = rd.nextInt(height);
 		int playerCol = rd.nextInt(width);
 		grid.getCell(playerRow, playerCol).setType(Entity.CellEntityType.PLAYER);
+		grid.getCell(playerRow, playerCol).visited = true;
 		grid.currentCell = grid.getCell(playerRow, playerCol);
 		return grid;
 	}
@@ -82,37 +82,65 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		}
 		Cell current = getCell(row, col);
 		Cell target = getCell(row - 1, col);
-	
-		// Schimbă tipurile celulelor
+		target.visited = true;
+		// Setează tipul celulei curente la VOID
 		current.setType(Entity.CellEntityType.VOID);
+	
+		// Setează tipul celulei țintă la PLAYER
 		target.setType(Entity.CellEntityType.PLAYER);
 	
 		// Actualizează celula curentă
 		currentCell = target;
 	}
-	public void goSouth() throws Exception{
+
+	public void goSouth() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
-		if(row == height - 1) {
+		if (row == height - 1) {
 			throw new Exception("You can't go south from here!");
 		}
-		currentCell = getCell(row + 1, col);
+		Cell current = getCell(row, col);
+		Cell target = getCell(row + 1, col);
+		target.visited = true;
+		current.setType(Entity.CellEntityType.VOID);
+	
+		// Setează tipul celulei țintă la PLAYER
+		target.setType(Entity.CellEntityType.PLAYER);
+
+		currentCell = target;
 	}
+	
 	public void goEast() throws Exception{
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
-		if(col == 0) {
+		if(col == width - 1) {
 			throw new Exception("You can't go east from here!");
 		}
-		currentCell = getCell(row, col - 1);
+		Cell current = getCell(row, col);
+		Cell target = getCell(row, col + 1);
+		target.visited = true;
+		current.setType(Entity.CellEntityType.VOID);
+	
+		// Setează tipul celulei țintă la PLAYER
+		target.setType(Entity.CellEntityType.PLAYER);
+
+		currentCell = target;
 	}
 	public void goWest() throws Exception{
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
-		if(col == width - 1) {
+		if(col == 0) {
 			throw new Exception("You can't go west from here!");
 		}
-		currentCell = getCell(row, col + 1);
+		Cell current = getCell(row, col);
+		Cell target = getCell(row, col - 1);
+		target.visited = true;
+		current.setType(Entity.CellEntityType.VOID);
+	
+		// Setează tipul celulei țintă la PLAYER
+		target.setType(Entity.CellEntityType.PLAYER);
+
+		currentCell = target;
 	}
 
 	public void printGrid() {
@@ -122,24 +150,29 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 				if(cell == currentCell) {
 					System.out.print("P ");
 				}
-                switch (cell.getType()) {
-                    case PLAYER:
-                        break;
-                    case SANCTUARY:
-                        System.out.print("S ");
-                        break;
-                    case ENEMY:
-                        System.out.print("E ");
-                        break;
-                    case PORTAL:
-                        System.out.print("O ");
-                        break;
-                    case VOID:
-                    default:
-                        System.out.print(". ");
-                        break;
-                }
+				if(cell.visited == false) {
+					System.out.print("* ");
+				}
+				else {
+					switch (cell.getType()) {
+						case PLAYER:
+							break;
+						case SANCTUARY:
+							System.out.print("S ");
+							break;
+						case ENEMY:
+							System.out.print("E ");
+							break;
+						case PORTAL:
+							System.out.print("O ");
+							break;
+						case VOID:
+						default:
+							System.out.print("V ");
+							break;
+					}
             }
+		}
             System.out.println();
         }
     }

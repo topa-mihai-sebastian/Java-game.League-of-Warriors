@@ -1,12 +1,14 @@
 public class Cell {
-	int Ox, Oy;
-	boolean visited;
+	public int Ox, Oy;
+	public boolean visited;
 	Entity.CellEntityType type;
-	
+	Entity.CellEntityType originalType;
+
 	public Cell() {
 		this.Ox = 0;
 		this.Oy = 0;
-		this.type = Entity.CellEntityType.VOID; // Sau orice tip implicit dorești
+		this.type = Entity.CellEntityType.VOID;
+		this.originalType = this.type;
 		this.visited = false;
 	}
 
@@ -14,8 +16,17 @@ public class Cell {
         this.Ox = Ox;
         this.Oy = Oy;
         this.type = type;
+		this.originalType = type;
         this.visited = false;
     }
+
+	public Entity.CellEntityType getOriginalType() {
+		return originalType;
+	}
+	
+	public void setOriginalType(Entity.CellEntityType originalType) {
+		this.originalType = originalType;
+	}
 
     // Getteri și setteri pentru câmpuri
     public int getOx() {
