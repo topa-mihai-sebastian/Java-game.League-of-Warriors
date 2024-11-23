@@ -1,16 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 public class Account {
     private Information information;
-    private List<Character> characters;
+    private ArrayList<Character> characters;
     private int gamesPlayed;
 
-    // Constructor al clasei Account
-    public Account(Information information, int gamesPlayed) {
+    public Account(ArrayList<Character> characters, int gamesPlayed, Information information) {
         this.information = information;
-        this.characters = new ArrayList<>();
+        this.characters = characters;
         this.gamesPlayed = gamesPlayed;
     }
 
@@ -42,16 +42,16 @@ public class Account {
     }
 
     // Clasa Information
-    static class Information {
+    public static class Information {
         private Credentials credentials;
-        private TreeSet<String> favoriteGames;
+        private SortedSet<String> favoriteGames;
         private String name;
         private String country;
 
         // Constructor al clasei Information
-        public Information(Credentials credentials, String name, String country) {
+        public Information(Credentials credentials, SortedSet<String> favoriteGames, String name, String country) {
             this.credentials = credentials;
-            this.favoriteGames = new TreeSet<String>();
+            this.favoriteGames = favoriteGames;
             this.name = name;
             this.country = country;
         }
@@ -65,7 +65,7 @@ public class Account {
             this.credentials = credentials;
         }
 
-        public TreeSet<String> getFavoriteGames() {
+        public SortedSet<String> getFavoriteGames() {
             return favoriteGames;
         }
 

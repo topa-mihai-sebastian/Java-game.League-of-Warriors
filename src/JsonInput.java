@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.ContentHandler;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONObject;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -89,9 +90,5 @@ public class JsonInput {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void main(String[] args) {
-        deserializeAccounts();
     }
 }

@@ -18,6 +18,12 @@ public class Character extends Entity{
 		this.Dexterity = 0;
 	}
 
+	public Character(String name, Integer XP, int lvl) {
+		this.name = name;
+		this.XP = XP;
+		this.level = lvl;
+	}
+	
 	public Character(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
 		this.name = name;
 		this.XP = XP;

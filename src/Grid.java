@@ -39,7 +39,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		return grid;
 	}
 
-	private void addEntity(Entity.CellEntityType type, int count) {
+	public void addEntity(Entity.CellEntityType type, int count) {
 		Random rd = new Random();
 		int placed = 0;
 		while(placed < count) {
@@ -58,17 +58,37 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
         return this.get(rowIndex).get(colIndex);
     }
 
+	public Cell getCurrentCell() {
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				Cell current = getCell(i, j);
+				if(current.type == Entity.CellEntityType.PLAYER) {
+					return current;
+				}
+			}
+		}
+		return null;
+	}
+
     public void setCell(int rowIndex, int colIndex, Cell cell) {
         this.get(rowIndex).set(colIndex, cell);
     }
 	
-	public void goNorth() throws Exception{
+	public void goNorth() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
-		if(row == 0) {
+		if (row == 0) {
 			throw new Exception("You can't go north from here!");
 		}
-		currentCell = getCell(row - 1, col);
+		Cell current = getCell(row, col);
+		Cell target = getCell(row - 1, col);
+	
+		// Schimbă tipurile celulelor
+		current.setType(Entity.CellEntityType.VOID);
+		target.setType(Entity.CellEntityType.PLAYER);
+	
+		// Actualizează celula curentă
+		currentCell = target;
 	}
 	public void goSouth() throws Exception{
 		int row = currentCell.getOx();
@@ -99,9 +119,11 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 Cell cell = getCell(i, j);
+				if(cell == currentCell) {
+					System.out.print("P ");
+				}
                 switch (cell.getType()) {
                     case PLAYER:
-                        System.out.print("P ");
                         break;
                     case SANCTUARY:
                         System.out.print("S ");

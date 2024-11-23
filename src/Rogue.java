@@ -4,6 +4,11 @@ public class Rogue extends Character {
 	public Rogue(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
         super(name, XP, level, Strength, Charisma, Dexterity);
     }
+
+	public Rogue(String name, Integer experience, int lvl) {
+		super(name, experience, lvl);
+	}
+
 	public int calculateLoseHealth(int damageDealt) {
 		Random rd = new Random();
 		boolean halfChance = rd.nextBoolean();

@@ -5,6 +5,10 @@ public class Mage extends Character{
         super(name, XP, level, Strength, Charisma, Dexterity);
     }
 
+	public Mage(String name, Integer experience, int lvl) {
+		super(name, experience, lvl);
+	}
+
 	public int calculateLoseHealth(int damageDealt) {
 		Random rd = new Random();
 		boolean halfChance = rd.nextBoolean();

@@ -2,9 +2,9 @@ import java.util.Random;
 
 public abstract class Entity {
 	private int currentMana;
-	final int maxMana = 100;
+	final int maxMana = 1000;
 	private int currentHealth;
-	final int maxHealth = 1000;
+	final int maxHealth = 100;
 
 	public enum CellEntityType {
 		PLAYER,
@@ -16,33 +16,41 @@ public abstract class Entity {
 	public void setCurrentHealth(int health) {
 		this.currentHealth = health;
 	}
+	
 	public void setCurrentMana(int mana) {
 		this.currentMana = mana;
 	}
+	
 	public int getCurrentMana() {
 		return currentMana;
 	}
+	
 	public int getCurrentHealth() {
 		return currentHealth;
 	}
+	
 	public void getDamage(int damage) {
 		this.currentHealth -= damage;
 	}
+	
 	public void useMana(int mana) {
 		this.currentMana -= mana;
 	}
+	
 	public void lifeRegen(int newHealth) {
 		if(newHealth > maxHealth) {
 			return;
 		}
 		this.currentHealth = newHealth;
 	}
+	
 	public void manaRegen(int newMana) {
 		if(newMana > maxMana) {
 			return;
 		}
 		this.currentMana = newMana;
 	}
+	
 	public void receiveDamage(int damage) {
 		Random rd = new Random();
 		boolean halfDamage = rd.nextBoolean(); // 1/2
