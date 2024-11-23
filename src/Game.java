@@ -5,12 +5,13 @@ import java.util.Scanner;
 public class Game {
 	public ArrayList<Account> accountList;
 	public Grid gameGrid;
-
+	public Warrior myWarrior;
 	public Game() {
 		Random rd = new Random();
 		int randomWidth = rd.nextInt(7) + 4;
 		int randomHeight = rd.nextInt(7) + 4;
-		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight);
+		this.myWarrior = new Warrior("Hero", 50, 3, 60, 45, 35);
+		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
 	}
 
 	public void run(){
@@ -67,6 +68,7 @@ public class Game {
         }
     }
 	public static void main(String[] args) {
+		Warrior myWarrior = new Warrior("myName", 100, 3);
 		Game newGame = new Game();
 		newGame.run();
 	}

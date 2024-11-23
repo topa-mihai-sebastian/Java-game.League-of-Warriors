@@ -21,6 +21,8 @@ public class Enemy extends Entity {
 
         // Setează damage-ul de bază cu o valoare aleatoare
         this.Strength = rd.nextInt(21) + 10; // Interval: 10 - 30
+		this.Dexterity = rd.nextInt(21) + 10; // Interval: 10 - 30
+		this.Charisma = rd.nextInt(21) + 10; // Interval: 10 - 30
 
         // Setează imunitățile cu valori aleatoare
         this.fireImmunity = rd.nextInt(101); // Interval: 0 - 100

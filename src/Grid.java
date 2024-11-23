@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Grid extends ArrayList<ArrayList<Cell>>{
 	public static boolean printable;
 	private int width, height;
-    //private Character currentCharacter;
+    private Warrior currentCharacter;
     private Cell currentCell;
 
 	private Grid(int width, int height) {
@@ -20,7 +21,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
         }
     }
 
-	public static Grid createTheGrid(int width, int height) {
+	public static Grid createTheGrid(int width, int height, Warrior warrior) {
 		if(width > 10 || height > 10) {
 			throw new IllegalArgumentException("Maximum dimension is 10x10!");
 		}
@@ -38,6 +39,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		grid.getCell(playerRow, playerCol).visited = true;
 		grid.currentCell = grid.getCell(playerRow, playerCol);
 		printable = true;
+
+		grid.currentCharacter = warrior;
+
 		return grid;
 	}
 
@@ -85,6 +89,27 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Cell current = getCell(row, col);
 		Cell target = getCell(row - 1, col);
 		if(target.type == Entity.CellEntityType.ENEMY) {
+			Enemy enemy = new Enemy();
+
+			System.out.println("Choose how to attack: ");
+			System.out.println("1. Basic attack");
+			System.out.println("2. Spell");
+			Scanner scanner = new Scanner(System.in);
+			String choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					System.out.println(enemy.getCurrentHealth());
+					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					currentCharacter.getDamage(defaultDamage);
+					enemy.receiveDamage(defaultDamage);
+					System.out.println(enemy.getCurrentHealth());
+					break;
+				case "2":
+					break;
+				default:
+					break;
+			}
+			
 			printable = false;
 		}
 		if(target.type != Entity.CellEntityType.ENEMY) {
@@ -110,6 +135,27 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Cell current = getCell(row, col);
 		Cell target = getCell(row + 1, col);
 		if(target.type == Entity.CellEntityType.ENEMY) {
+			Enemy enemy = new Enemy();
+
+			System.out.println("Choose how to attack: ");
+			System.out.println("1. Basic attack");
+			System.out.println("2. Spell");
+			Scanner scanner = new Scanner(System.in);
+			String choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					System.out.println(enemy.getCurrentHealth());
+					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					currentCharacter.getDamage(defaultDamage);
+					enemy.receiveDamage(defaultDamage);
+					System.out.println(enemy.getCurrentHealth());
+					break;
+				case "2":
+					break;
+				default:
+					break;
+			}
+			
 			printable = false;
 		}
 		if(target.type != Entity.CellEntityType.ENEMY) {
@@ -133,6 +179,27 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Cell current = getCell(row, col);
 		Cell target = getCell(row, col + 1);
 		if(target.type == Entity.CellEntityType.ENEMY) {
+			Enemy enemy = new Enemy();
+
+			System.out.println("Choose how to attack: ");
+			System.out.println("1. Basic attack");
+			System.out.println("2. Spell");
+			Scanner scanner = new Scanner(System.in);
+			String choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					System.out.println(enemy.getCurrentHealth());
+					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					currentCharacter.getDamage(defaultDamage);
+					enemy.receiveDamage(defaultDamage);
+					System.out.println(enemy.getCurrentHealth());
+					break;
+				case "2":
+					break;
+				default:
+					break;
+			}
+			
 			printable = false;
 		}
 		if(target.type != Entity.CellEntityType.ENEMY) {
@@ -155,6 +222,27 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Cell current = getCell(row, col);
 		Cell target = getCell(row, col - 1);
 		if(target.type == Entity.CellEntityType.ENEMY) {
+			Enemy enemy = new Enemy();
+
+			System.out.println("Choose how to attack: ");
+			System.out.println("1. Basic attack");
+			System.out.println("2. Spell");
+			Scanner scanner = new Scanner(System.in);
+			String choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					System.out.println(enemy.getCurrentHealth());
+					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					currentCharacter.getDamage(defaultDamage);
+					enemy.receiveDamage(defaultDamage);
+					System.out.println(enemy.getCurrentHealth());
+					break;
+				case "2":
+					break;
+				default:
+					break;
+			}
+			
 			printable = false;
 		}
 		if(target.type != Entity.CellEntityType.ENEMY) {

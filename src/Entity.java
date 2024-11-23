@@ -13,6 +13,7 @@ public abstract class Entity {
 		SANCTUARY,
 		PORTAL
 	}
+
 	public void setCurrentHealth(int health) {
 		this.currentHealth = health;
 	}
@@ -62,6 +63,7 @@ public abstract class Entity {
 			this.currentHealth = 0;
 		}
 	}
+	
 	public abstract int getDamage();
 	public abstract void useAbility(CellEntityType abilityType, Character enemy);
 
