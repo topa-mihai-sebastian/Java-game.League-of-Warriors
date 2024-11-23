@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -6,7 +7,10 @@ public class Game {
 	public Grid gameGrid;
 
 	public Game() {
-		this.gameGrid = Grid.createTheGrid(10, 10);
+		Random rd = new Random();
+		int randomWidth = rd.nextInt(7) + 4;
+		int randomHeight = rd.nextInt(7) + 4;
+		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight);
 	}
 
 	public void run(){

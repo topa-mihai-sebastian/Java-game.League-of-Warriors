@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid extends ArrayList<ArrayList<Cell>>{
+	public static boolean printable;
 	private int width, height;
     //private Character currentCharacter;
     private Cell currentCell;
@@ -36,6 +37,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		grid.getCell(playerRow, playerCol).setType(Entity.CellEntityType.PLAYER);
 		grid.getCell(playerRow, playerCol).visited = true;
 		grid.currentCell = grid.getCell(playerRow, playerCol);
+		printable = true;
 		return grid;
 	}
 
@@ -82,6 +84,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		}
 		Cell current = getCell(row, col);
 		Cell target = getCell(row - 1, col);
+		if(target.type == Entity.CellEntityType.ENEMY) {
+			printable = false;
+		}
 		target.visited = true;
 		// Setează tipul celulei curente la VOID
 		current.setType(Entity.CellEntityType.VOID);
@@ -101,6 +106,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		}
 		Cell current = getCell(row, col);
 		Cell target = getCell(row + 1, col);
+		if(target.type == Entity.CellEntityType.ENEMY) {
+			printable = false;
+		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);
 	
@@ -118,6 +126,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		}
 		Cell current = getCell(row, col);
 		Cell target = getCell(row, col + 1);
+		if(target.type == Entity.CellEntityType.ENEMY) {
+			printable = false;
+		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);
 	
@@ -134,6 +145,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		}
 		Cell current = getCell(row, col);
 		Cell target = getCell(row, col - 1);
+		if(target.type == Entity.CellEntityType.ENEMY) {
+			printable = false;
+		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);
 	
@@ -144,43 +158,38 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 	}
 
 	public void printGrid() {
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                Cell cell = getCell(i, j);
-				if(cell == currentCell) {
-					System.out.print("P ");
-				}
-				if(cell.visited == false) {
-					System.out.print("* ");
-				}
-				else {
-					switch (cell.getType()) {
-						case PLAYER:
-							break;
-						case SANCTUARY:
-							System.out.print("S ");
-							break;
-						case ENEMY:
-							System.out.print("E ");
-							break;
-						case PORTAL:
-							System.out.print("O ");
-							break;
-						case VOID:
-						default:
-							System.out.print("V ");
-							break;
+		if(printable == true) {
+			for (int i = 0; i < height; i++) {
+				for (int j = 0; j < width; j++) {
+					Cell cell = getCell(i, j);
+					if(cell == currentCell) {
+						System.out.print("P ");
 					}
-            }
+					if(cell.visited == false) {
+						System.out.print("* ");
+					}
+					else {
+						switch (cell.getType()) {
+							case PLAYER:
+								break;
+							case SANCTUARY:
+								System.out.print("S ");
+								break;
+							case ENEMY:
+								System.out.print("E ");
+								break;
+							case PORTAL:
+								System.out.print("O ");
+								break;
+							case VOID:
+							default:
+								System.out.print("V ");
+								break;
+						}
+					}
+				}
+				System.out.println();
+			}
 		}
-            System.out.println();
-        }
     }
-	public static void main(String[] args) {
-		// testare
-		Grid grid = Grid.createTheGrid(10, 10);
-
-        // Afișează grila
-        grid.printGrid();
-	}
 }
