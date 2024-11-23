@@ -87,6 +87,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		if(target.type == Entity.CellEntityType.ENEMY) {
 			printable = false;
 		}
+		if(target.type != Entity.CellEntityType.ENEMY) {
+			printable = true;
+		}
 		target.visited = true;
 		// Setează tipul celulei curente la VOID
 		current.setType(Entity.CellEntityType.VOID);
@@ -109,6 +112,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		if(target.type == Entity.CellEntityType.ENEMY) {
 			printable = false;
 		}
+		if(target.type != Entity.CellEntityType.ENEMY) {
+			printable = true;
+		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);
 	
@@ -129,6 +135,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		if(target.type == Entity.CellEntityType.ENEMY) {
 			printable = false;
 		}
+		if(target.type != Entity.CellEntityType.ENEMY) {
+			printable = true;
+		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);
 	
@@ -147,6 +156,9 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		Cell target = getCell(row, col - 1);
 		if(target.type == Entity.CellEntityType.ENEMY) {
 			printable = false;
+		}
+		if(target.type != Entity.CellEntityType.ENEMY) {
+			printable = true;
 		}
 		target.visited = true;
 		current.setType(Entity.CellEntityType.VOID);

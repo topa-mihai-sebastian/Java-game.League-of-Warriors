@@ -17,7 +17,12 @@ public class Game {
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
 			gameGrid.printGrid();
-			printOptions();
+			if(Grid.printable == false) {
+				System.out.println("INAMIC BA FUUUGI!");
+			}
+			if(Grid.printable == true) {
+				printOptions();
+			}
 			String command = scanner.nextLine();
 			try {
 				executeCommand(command);
