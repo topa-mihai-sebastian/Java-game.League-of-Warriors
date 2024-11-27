@@ -51,7 +51,7 @@ public class Enemy extends Entity {
         setCurrentHealth(getCurrentHealth() - damage);
 
         if (getCurrentHealth() < 0) {
-            setCurrentHealth(0); // Asigură-te că sănătatea nu scade sub 0
+            setCurrentHealth(0); 
         }
     }
 

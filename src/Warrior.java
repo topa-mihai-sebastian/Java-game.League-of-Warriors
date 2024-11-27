@@ -3,6 +3,7 @@ import java.util.Random;
 public class Warrior extends Character {
 	public Warrior(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
         super(name, XP, level, Strength, Charisma, Dexterity);
+		super.setCurrentHealth(super.maxHealth);
     }
 	//constructor ca in test
 	public Warrior(String name, Integer experience, int lvl) {

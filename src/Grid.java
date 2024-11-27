@@ -80,6 +80,32 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
         this.get(rowIndex).set(colIndex, cell);
     }
 	
+	public void battle(Enemy enemy, Warrior currentCharacter) {
+		Scanner scanner = new Scanner(System.in);
+		while(enemy.getCurrentHealth() > 0 && currentCharacter.getCurrentHealth() > 0) {
+			String choice = scanner.nextLine();
+			switch (choice) {
+				case "1":
+					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
+					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					enemy.receiveDamage(defaultDamage);
+					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
+
+					System.out.println("Tu ai " + currentCharacter.getCurrentHealth() + " HP");
+					int defaultDamageEnemy = enemy.getDamage();
+					currentCharacter.receiveDamage(currentCharacter.calculateLoseHealth(defaultDamageEnemy));
+					System.out.println("Dupa atacul inamicului mai ai " + currentCharacter.getCurrentHealth() + " HP");
+					
+					break;
+				case "2":
+					break;
+				default:
+					break;
+			}
+		}
+		scanner.close();
+	}
+
 	public void goNorth() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
@@ -96,19 +122,10 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("2. Spell");
 			Scanner scanner = new Scanner(System.in);
 			String choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println(enemy.getCurrentHealth());
-					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					currentCharacter.getDamage(defaultDamage);
-					enemy.receiveDamage(defaultDamage);
-					System.out.println(enemy.getCurrentHealth());
-					break;
-				case "2":
-					break;
-				default:
-					break;
-			}
+			
+			// modul de combat
+			Game.currentEnemy = enemy;
+			battle(enemy, currentCharacter);
 			
 			printable = false;
 		}
@@ -142,19 +159,10 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("2. Spell");
 			Scanner scanner = new Scanner(System.in);
 			String choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println(enemy.getCurrentHealth());
-					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					currentCharacter.getDamage(defaultDamage);
-					enemy.receiveDamage(defaultDamage);
-					System.out.println(enemy.getCurrentHealth());
-					break;
-				case "2":
-					break;
-				default:
-					break;
-			}
+			
+			// modul de combat
+			Game.currentEnemy = enemy;
+			battle(enemy, currentCharacter);
 			
 			printable = false;
 		}
@@ -186,19 +194,10 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("2. Spell");
 			Scanner scanner = new Scanner(System.in);
 			String choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println(enemy.getCurrentHealth());
-					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					currentCharacter.getDamage(defaultDamage);
-					enemy.receiveDamage(defaultDamage);
-					System.out.println(enemy.getCurrentHealth());
-					break;
-				case "2":
-					break;
-				default:
-					break;
-			}
+			
+			// modul de combat
+			Game.currentEnemy = enemy;
+			battle(enemy, currentCharacter);
 			
 			printable = false;
 		}
@@ -213,6 +212,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 
 		currentCell = target;
 	}
+
 	public void goWest() throws Exception{
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
@@ -229,19 +229,10 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("2. Spell");
 			Scanner scanner = new Scanner(System.in);
 			String choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println(enemy.getCurrentHealth());
-					int defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					currentCharacter.getDamage(defaultDamage);
-					enemy.receiveDamage(defaultDamage);
-					System.out.println(enemy.getCurrentHealth());
-					break;
-				case "2":
-					break;
-				default:
-					break;
-			}
+			
+			// modul de combat
+			Game.currentEnemy = enemy;
+			battle(enemy, currentCharacter);
 			
 			printable = false;
 		}
