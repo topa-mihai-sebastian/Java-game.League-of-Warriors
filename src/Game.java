@@ -19,64 +19,79 @@ public class Game {
 
 	public void run() {
 		Scanner scanner = new Scanner(System.in);
-		while(true) {
-			gameGrid.printGrid();
-			if(Grid.printable == true) {
-				printOptions();
+		try {
+			while (true) {
+				gameGrid.printGrid();
+				if (Grid.printable) {
+					printOptions();
+				}
+				System.out.print("Enter your choice: ");
+				if (scanner.hasNextLine()) {
+					String command = scanner.nextLine().trim();
+					if (!command.isEmpty()) {
+						try {
+							executeCommand(command);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+					} else {
+						System.out.println("No input provided. Please enter a valid command.");
+					}
+				} else {
+					System.out.println("No input available. Exiting...");
+					break;
+				}
+				if (currentEnemy != null && currentEnemy.getCurrentHealth() <= 0) {
+					System.out.println("Enemy defeated!!");
+					currentEnemy = null;
+				}
+				if (myWarrior.getCurrentHealth() <= 0) {
+					System.out.println("YOU LOST!");
+					System.out.println("YOU HAVE NO HEALTH LEFT");
+					break;
+				}
 			}
-			String command = scanner.nextLine();
-			try {
-				executeCommand(command);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			if(currentEnemy != null && currentEnemy.getCurrentHealth() <= 0) {
-				System.out.println("Enemy defeated!!");
-				currentEnemy = null;
-			}
-			if(myWarrior.getCurrentHealth() <= 0) {
-				System.out.println("YOU LOST!");
-				System.out.println("YOU HAVE NO HEALTH LEFT");
-				break;
-			}
+		} finally {
+			scanner.close();
 		}
-		scanner.close();
 	}
 
-	public void printOptions(){
+	public void printOptions() {
 		Cell currentCell = gameGrid.getCurrentCell();
-        System.out.println("You are currently at cell [" + currentCell.getOx() + ", " + currentCell.getOy() + "]");
-        System.out.println("Available options:");
-        System.out.println("1. Go North");
-        System.out.println("2. Go South");
-        System.out.println("3. Go East");
-        System.out.println("4. Go West");
-        System.out.println("5. Exit");
-        System.out.println("Enter your choice: ");
+		System.out.println("You are currently at cell [" + currentCell.getOx() + ", " + currentCell.getOy() + "]");
+		System.out.println("Available options:");
+		System.out.println("W. Go North");
+		System.out.println("S. Go South");
+		System.out.println("D. Go East");
+		System.out.println("A. Go West");
+		System.out.println("Q. Exit");
+		System.out.println("Enter your choice: ");
 	}
+
 	public void executeCommand(String command) throws Exception {
-        switch (command) {
-            case "1":
-                gameGrid.goNorth();
-                break;
-            case "2":
-                gameGrid.goSouth();
-                break;
-            case "3":
-                gameGrid.goEast();
-                break;
-            case "4":
-                gameGrid.goWest();
-                break;
-            case "5":
-                System.out.println("Exiting the game.");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid option. Please try again.");
-                break;
-        }
-    }
+		switch (command) {
+			case "w":
+				gameGrid.goNorth();
+				break;
+			case "s":
+				gameGrid.goSouth();
+				break;
+			case "d":
+				gameGrid.goEast();
+				break;
+			case "a":
+				gameGrid.goWest();
+				break;
+			case "q":
+				System.out.println("Exiting the game.");
+				System.exit(0);
+				break;
+			default:
+				System.out.println("Invalid option. Please try again.");
+				break;
+		}
+	}
+
 	public static void main(String[] args) {
 		Game newGame = new Game();
 		newGame.run();

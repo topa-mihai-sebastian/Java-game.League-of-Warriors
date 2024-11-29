@@ -95,7 +95,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 					int defaultDamageEnemy = enemy.getDamage();
 					currentCharacter.receiveDamage(currentCharacter.calculateLoseHealth(defaultDamageEnemy));
 					System.out.println("Dupa atacul inamicului mai ai " + currentCharacter.getCurrentHealth() + " HP");
-					
 					break;
 				case "2":
 					break;
@@ -120,8 +119,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
 			System.out.println("2. Spell");
-			Scanner scanner = new Scanner(System.in);
-			String choice = scanner.nextLine();
 			
 			// modul de combat
 			Game.currentEnemy = enemy;
@@ -157,8 +154,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
 			System.out.println("2. Spell");
-			Scanner scanner = new Scanner(System.in);
-			String choice = scanner.nextLine();
 			
 			// modul de combat
 			Game.currentEnemy = enemy;
@@ -192,8 +187,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
 			System.out.println("2. Spell");
-			Scanner scanner = new Scanner(System.in);
-			String choice = scanner.nextLine();
 			
 			// modul de combat
 			Game.currentEnemy = enemy;
@@ -213,7 +206,7 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 		currentCell = target;
 	}
 
-	public void goWest() throws Exception{
+	public void goWest() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
 		if(col == 0) {
@@ -227,8 +220,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
 			System.out.println("2. Spell");
-			Scanner scanner = new Scanner(System.in);
-			String choice = scanner.nextLine();
 			
 			// modul de combat
 			Game.currentEnemy = enemy;
@@ -253,15 +244,13 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
 					Cell cell = getCell(i, j);
-					if(cell == currentCell) {
-						System.out.print("P ");
-					}
 					if(cell.visited == false) {
 						System.out.print("* ");
 					}
 					else {
 						switch (cell.getType()) {
 							case PLAYER:
+								System.out.print("P ");
 								break;
 							case SANCTUARY:
 								System.out.print("S ");
@@ -272,7 +261,6 @@ public class Grid extends ArrayList<ArrayList<Cell>>{
 							case PORTAL:
 								System.out.print("O ");
 								break;
-							case VOID:
 							default:
 								System.out.print("V ");
 								break;
