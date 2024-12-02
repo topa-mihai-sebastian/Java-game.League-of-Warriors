@@ -19,6 +19,7 @@ public class Game {
 
 	public void run() {
 		Scanner scanner = new Scanner(System.in);
+		String command;
 		try {
 			while (true) {
 				gameGrid.printGrid();
@@ -27,7 +28,7 @@ public class Game {
 				}
 				System.out.print("Enter your choice: ");
 				if (scanner.hasNextLine()) {
-					String command = scanner.nextLine().trim();
+					command = scanner.nextLine();
 					if (!command.isEmpty()) {
 						try {
 							executeCommand(command);
@@ -65,22 +66,29 @@ public class Game {
 		System.out.println("D. Go East");
 		System.out.println("A. Go West");
 		System.out.println("Q. Exit");
-		System.out.println("Enter your choice: ");
 	}
 
 	public void executeCommand(String command) throws Exception {
 		switch (command) {
 			case "w":
-				gameGrid.goNorth();
+				if (gameGrid.goNorth() == true) {
+					gameGrid.battle(currentEnemy, myWarrior);
+				}
 				break;
 			case "s":
-				gameGrid.goSouth();
+				if (gameGrid.goSouth() == true) {
+					gameGrid.battle(currentEnemy, myWarrior);
+				}
 				break;
 			case "d":
-				gameGrid.goEast();
+				if (gameGrid.goEast() == true) {
+					gameGrid.battle(currentEnemy, myWarrior);
+				}
 				break;
 			case "a":
-				gameGrid.goWest();
+				if (gameGrid.goWest() == true) {
+					gameGrid.battle(currentEnemy, myWarrior);
+				}
 				break;
 			case "q":
 				System.out.println("Exiting the game.");
