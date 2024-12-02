@@ -29,7 +29,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Grid grid = new Grid(width, height);
 		// sanctuare, inamici, portal
 		grid.addEntity(Entity.CellEntityType.SANCTUARY, 2);
-		grid.addEntity(Entity.CellEntityType.ENEMY, 5);
+		grid.addEntity(Entity.CellEntityType.ENEMY, 4);
 		grid.addEntity(Entity.CellEntityType.PORTAL, 1);
 
 		// punem jucatorul pe o pozitie aleatoare
@@ -143,6 +143,15 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentEnemy = new Enemy();
 		}
 
+		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Game.onSanctuary = true;
+			Random rd = new Random();
+			int bonus = rd.nextInt(35) + 35;
+			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
+			bonus = rd.nextInt(300) + 300;
+			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+		}
+
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
@@ -168,7 +177,14 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.ENEMY) {
 			Game.currentEnemy = new Enemy();
 		}
-
+		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Game.onSanctuary = true;
+			Random rd = new Random();
+			int bonus = rd.nextInt(35) + 35;
+			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
+			bonus = rd.nextInt(300) + 300;
+			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
@@ -193,6 +209,14 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 
 		if (aux == Entity.CellEntityType.ENEMY) {
 			Game.currentEnemy = new Enemy();
+		}
+		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Game.onSanctuary = true;
+			Random rd = new Random();
+			int bonus = rd.nextInt(35) + 35;
+			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
+			bonus = rd.nextInt(300) + 300;
+			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -219,7 +243,14 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.ENEMY) {
 			Game.currentEnemy = new Enemy();
 		}
-
+		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Game.onSanctuary = true;
+			Random rd = new Random();
+			int bonus = rd.nextInt(35) + 35;
+			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
+			bonus = rd.nextInt(300) + 300;
+			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
@@ -257,6 +288,12 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 					}
 				}
 				System.out.println();
+			}
+			if(Game.onSanctuary == true) {
+				System.out.println("You are in a sanctuary!");
+				System.out.println("Your new life is:" + Game.myWarrior.getCurrentHealth());
+				System.out.println("Your new mana is:" + Game.myWarrior.getCurrentMana());
+				Game.onSanctuary = false;
 			}
 		}
 	}

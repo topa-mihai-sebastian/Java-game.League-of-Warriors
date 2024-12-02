@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,15 +6,16 @@ import java.util.Scanner;
 public class Game {
 	public ArrayList<Account> accountList;
 	public Grid gameGrid;
-	public Warrior myWarrior;
+	public static Warrior myWarrior;
 	public static Enemy currentEnemy;
+	public static boolean onSanctuary;
 
 	public Game() {
 		Random rd = new Random();
 		int randomWidth = rd.nextInt(7) + 4;
 		int randomHeight = rd.nextInt(7) + 4;
-		this.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
-		this.myWarrior.setCurrentHealth(myWarrior.maxHealth);
+		Game.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
+		Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
 		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
 	}
 
@@ -101,20 +101,40 @@ public class Game {
 				if (gameGrid.goNorth() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
 				}
+				if(onSanctuary == true) {
+					System.out.println("You are in a sanctuary!");
+					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
+					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
+				}
 				break;
 			case "s":
 				if (gameGrid.goSouth() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
+				}
+				if(onSanctuary == true) {
+					System.out.println("You are in a sanctuary!");
+					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
+					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
 				}
 				break;
 			case "d":
 				if (gameGrid.goEast() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
 				}
+				if(onSanctuary == true) {
+					System.out.println("You are in a sanctuary!");
+					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
+					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
+				}
 				break;
 			case "a":
 				if (gameGrid.goWest() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
+				}
+				if(onSanctuary == true) {
+					System.out.println("You are in a sanctuary!");
+					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
+					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
 				}
 				break;
 			case "q":
@@ -158,6 +178,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Game newGame = new Game();
+		Game.onSanctuary = false;
 		ArrayList<Account> accounts = createAccounts();
 		boolean youReIn = logIn(accounts);
 		if (youReIn) {
