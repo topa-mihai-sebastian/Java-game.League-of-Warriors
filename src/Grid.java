@@ -117,7 +117,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (currentCharacter.getCurrentHealth() <= 0) {
 			System.out.println("You have been defeated!");
 		}
-		scanner.close();
+		//scanner.close();
 	}
 
 	public boolean goNorth() throws Exception {
@@ -223,7 +223,13 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
+	public void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
 	public void printGrid() {
+		clearScreen();
 		if (printable == true) {
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {

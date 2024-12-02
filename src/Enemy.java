@@ -41,8 +41,8 @@ public class Enemy extends Entity {
     @Override
     public void receiveDamage(int damage) {
         Random rd = new Random();
-        boolean avoidDamage = rd.nextBoolean(); // 50% șansă
-
+        double chance = rd.nextDouble(); // Returnează un număr între 0.0 și 1.0
+		boolean avoidDamage = chance < 0.1; // 10% șansă de a evita daunele
         if (avoidDamage) {
             System.out.println("Enemy avoided the damage!");
             return;

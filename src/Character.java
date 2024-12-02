@@ -2,12 +2,12 @@ import java.util.Random;
 
 public class Character extends Entity{
 	public String name;
-	private int XP;
-	private int level;
-
-	private int Strength;
-	private int Charisma;
-	private int Dexterity;
+	public int XP;
+	public int level;
+	public String profession;
+	public int Strength;
+	public int Charisma;
+	public int Dexterity;
 
 	public Character() {
 		this.name = "noName";
@@ -24,6 +24,13 @@ public class Character extends Entity{
 		this.level = lvl;
 	}
 	
+	public Character(String name, String profession, int level, int experience) {
+        this.name = name;
+        this.profession = profession;
+        this.level = level;
+        this.XP = experience;
+    }
+
 	public Character(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
 		this.name = name;
 		this.XP = XP;
