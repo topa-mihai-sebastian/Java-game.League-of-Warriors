@@ -84,6 +84,10 @@ public class Character extends Entity{
         this.level = level;
     }
 
+	public String getProfession(){
+		return this.profession;
+	}
+
 	public void setDexterity(int Dexterity) {
         this.Dexterity = Dexterity;
     }

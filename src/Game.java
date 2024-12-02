@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -6,6 +7,7 @@ import java.util.Scanner;
 public class Game {
 	public ArrayList<Account> accountList;
 	public Grid gameGrid;
+	public static Character currentCharacter;
 	public static Warrior myWarrior;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
@@ -28,7 +30,7 @@ public class Game {
 		characters1.add(new Character("Kameron Neppl", "Mage", 1, 10));
 		characters1.add(new Character("Chlarimonde Markert", "Rogue", 1, 35));
 		Information info1 = new Information(new Credentials("marcel@yahoo.com", "6K7GUxjsAc"), "Marcel", "Romania",
-				List.of("Metin", "4Story"), 15);
+				Arrays.asList("Metin", "4Story"), 15);
 		accounts.add(new Account(characters1, 0, info1));
 
 		ArrayList<Character> characters2 = new ArrayList<>();
@@ -36,10 +38,57 @@ public class Game {
 		characters2.add(new Character("Scarlett Gardon", "Mage", 7, 50));
 		characters2.add(new Character("Miyoko Fei", "Rogue", 15, 40));
 		Information info2 = new Information(new Credentials("genna1951@hotmail.red", "123456"), "Nawra Ortwin",
-				"Turkey", List.of("World of Warcraft", "Metin2", "Need for Speed"), 3);
+				"Turkey", Arrays.asList("World of Warcraft", "Metin2", "Need for Speed"), 3);
 		accounts.add(new Account(characters2, 0, info2));
 
-		// Adaugă restul conturilor în mod similar...
+		// Adăugarea restului conturilor
+		ArrayList<Character> characters3 = new ArrayList<>();
+		characters3.add(new Character("Fujio Takeshita", "Warrior", 12, 15));
+		characters3.add(new Character("Briareus Prestia", "Mage", 5, 10));
+		characters3.add(new Character("Kame Oda", "Rogue", 11, 5));
+		Information info3 = new Information(new Credentials("mculrad0586@perirh.com", "aTtZWI7SDl"), "Gemma Eusebius",
+				"France", Arrays.asList("Metin", "4Story"), 1);
+		accounts.add(new Account(characters3, 0, info3));
+
+		ArrayList<Character> characters4 = new ArrayList<>();
+		characters4.add(new Character("Fedele Sama", "Warrior", 10, 20));
+		characters4.add(new Character("Jannik Wriedt", "Mage", 1, 0));
+		characters4.add(new Character("Hisa Hano", "Rogue", 2, 20));
+		Information info4 = new Information(new Credentials("kdsinc@o0i.es", "bxSvxYcaoD"), "Grimwald Marciane",
+				"United Kingdom", Arrays.asList("Metin", "4Story"), 20);
+		accounts.add(new Account(characters4, 0, info4));
+
+		ArrayList<Character> characters5 = new ArrayList<>();
+		characters5.add(new Character("Rina Zanin", "Warrior", 3, 4));
+		characters5.add(new Character("Dyana Inselman", "Mage", 5, 10));
+		characters5.add(new Character("Uysal Abdallah", "Rogue", 7, 45));
+		Information info5 = new Information(new Credentials("dd55avid@lited.site", "L5PN1Qknrn"), "Sanjiv Bénédicte",
+				"India", Arrays.asList("Counter Strike 1.6", "GTA V", "Metin 2"), 60);
+		accounts.add(new Account(characters5, 0, info5));
+
+		ArrayList<Character> characters6 = new ArrayList<>();
+		characters6.add(new Character("Silvain Spilker", "Warrior", 8, 0));
+		characters6.add(new Character("Thibaut Goy", "Mage", 10, 3));
+		characters6.add(new Character("Eyup Uner", "Rogue", 2, 3));
+		Information info6 = new Information(new Credentials("troydealbaby@eoooodid.com", "nhnn0HXi8q"),
+				"Praveena Yevheniy", "Romania", Arrays.asList("Metin 2", "League of Legends"), 10);
+		accounts.add(new Account(characters6, 0, info6));
+
+		ArrayList<Character> characters7 = new ArrayList<>();
+		characters7.add(new Character("Jaiden Kimmich", "Warrior", 10, 1));
+		characters7.add(new Character("Zain Eiden", "Mage", 7, 2));
+		characters7.add(new Character("Crocefissa Smeriglio", "Rogue", 11, 5));
+		Information info7 = new Information(new Credentials("al6056@keralaairport.net", "fBfQbuDm8Z"), "Victor Madhuri",
+				"Bulgaria", Arrays.asList("Lego Lord of the Rings", "Guild Wars 2"), 3);
+		accounts.add(new Account(characters7, 0, info7));
+
+		ArrayList<Character> characters8 = new ArrayList<>();
+		characters8.add(new Character("Fiona Broussard", "Warrior", 20, 2));
+		characters8.add(new Character("Fjodora Schutzman", "Mage", 15, 3));
+		characters8.add(new Character("Shigeru Uno", "Rogue", 6, 10));
+		Information info8 = new Information(new Credentials("roschsin@epubp.site", "AtprqBw5np"), "Stuart Dorofei",
+				"Romania", Arrays.asList("Batman Arkham Knight", "Batman Arkham Asylum"), 13);
+		accounts.add(new Account(characters8, 0, info8));
 
 		return accounts;
 	}
@@ -80,7 +129,7 @@ public class Game {
 				}
 			}
 		} finally {
-			//scanner.close();
+			// scanner.close();
 		}
 	}
 
@@ -101,40 +150,20 @@ public class Game {
 				if (gameGrid.goNorth() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
 				}
-				if(onSanctuary == true) {
-					System.out.println("You are in a sanctuary!");
-					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
-					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
-				}
 				break;
 			case "s":
 				if (gameGrid.goSouth() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
-				}
-				if(onSanctuary == true) {
-					System.out.println("You are in a sanctuary!");
-					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
-					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
 				}
 				break;
 			case "d":
 				if (gameGrid.goEast() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
 				}
-				if(onSanctuary == true) {
-					System.out.println("You are in a sanctuary!");
-					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
-					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
-				}
 				break;
 			case "a":
 				if (gameGrid.goWest() == true) {
 					gameGrid.battle(currentEnemy, myWarrior);
-				}
-				if(onSanctuary == true) {
-					System.out.println("You are in a sanctuary!");
-					System.out.println("Your new life is:" + myWarrior.getCurrentHealth());
-					System.out.println("Your new mana is:" + myWarrior.getCurrentMana());
 				}
 				break;
 			case "q":
@@ -147,8 +176,8 @@ public class Game {
 		}
 	}
 
-	public static boolean logIn(ArrayList<Account> accounts) {
-		boolean loggedIn = false;
+	public static int logIn(ArrayList<Account> accounts) {
+		int loggedIn = -1;
 		String email, password;
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
@@ -159,30 +188,56 @@ public class Game {
 					System.out.print("Enter password: ");
 					password = scanner.nextLine();
 					if (password.equals(account.getInformation().getCredentials().getPassword())) {
-						loggedIn = true;
 						System.out.println("Login successful!");
+						loggedIn = accounts.indexOf(account);
 						break;
 					} else {
 						System.out.println("Incorrect password. Please try again.");
 					}
 				}
 			}
-			if (loggedIn) {
+			if (loggedIn != -1) {
 				break;
 			} else {
 				System.out.println("Email not found. Please try again.");
 			}
 		}
+		
 		return loggedIn;
 	}
 
 	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
 		Game newGame = new Game();
 		Game.onSanctuary = false;
 		ArrayList<Account> accounts = createAccounts();
-		boolean youReIn = logIn(accounts);
-		if (youReIn) {
-			newGame.run();
+		int index = logIn(accounts);
+		if (index != -1) {
+			Account loggedInAccount = accounts.get(index);
+			List<Character> characters = loggedInAccount.getCharacters();
+			System.out.println("Professions of characters in the logged-in account:");
+			for (int i = 0; i < characters.size(); i++) {
+                Character character = characters.get(i);
+                System.out.println((i + 1) + ". " + character.getName() + " - " + character.getProfession());
+            }
+			int choice = -1;
+			while (choice < 1 || choice > characters.size()) {
+                System.out.print("Choose a character by entering the corresponding number: ");
+                if (scanner.hasNextInt()) {
+                    choice = scanner.nextInt();
+                    if (choice < 1 || choice > characters.size()) {
+                        System.out.println("Invalid choice. Please try again.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a number.");
+                    scanner.next(); // Clear invalid input
+                }
+            }
+			Character chosenCharacter = characters.get(choice - 1);
+            System.out.println("You have chosen: " + chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
+			currentCharacter = chosenCharacter;
+			System.out.println(currentCharacter.getProfession());
+			// newGame.run();
 		}
 	}
 }
