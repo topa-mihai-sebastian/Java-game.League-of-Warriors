@@ -3,6 +3,8 @@ import java.util.Random;
 public class Rogue extends Character {
 	public Rogue(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
         super(name, XP, level, Strength, Charisma, Dexterity);
+		super.setCurrentHealth(super.maxHealth);
+		this.profession = "Rogue";
     }
 
 	public Rogue(String name, Integer experience, int lvl) {

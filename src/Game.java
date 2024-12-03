@@ -5,10 +5,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
+	public static Warrior myWarrior;
+	public static Mage myMage;
+	public static Rogue myRogue;
+
 	public ArrayList<Account> accountList;
 	public Grid gameGrid;
 	public static Character currentCharacter;
-	public static Warrior myWarrior;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
 
@@ -18,6 +21,13 @@ public class Game {
 		int randomHeight = rd.nextInt(7) + 4;
 		Game.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
 		Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
+
+		Game.myMage = new Mage("Hero", 50, 3, 20, 45, 35);
+		Game.myMage.setCurrentHealth(myWarrior.maxHealth);
+
+		Game.myRogue = new Rogue("Hero", 50, 3, 20, 45, 35);
+		Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
+
 		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
 	}
 
@@ -41,7 +51,6 @@ public class Game {
 				"Turkey", Arrays.asList("World of Warcraft", "Metin2", "Need for Speed"), 3);
 		accounts.add(new Account(characters2, 0, info2));
 
-		// Adăugarea restului conturilor
 		ArrayList<Character> characters3 = new ArrayList<>();
 		characters3.add(new Character("Fujio Takeshita", "Warrior", 12, 15));
 		characters3.add(new Character("Briareus Prestia", "Mage", 5, 10));
@@ -122,7 +131,7 @@ public class Game {
 					System.out.println("Enemy defeated!!");
 					currentEnemy = null;
 				}
-				if (myWarrior.getCurrentHealth() <= 0) {
+				if (currentCharacter.getCurrentHealth() <= 0) {
 					System.out.println("YOU LOST!");
 					System.out.println("YOU HAVE NO HEALTH LEFT");
 					break;
@@ -202,8 +211,33 @@ public class Game {
 				System.out.println("Email not found. Please try again.");
 			}
 		}
-		
+
 		return loggedIn;
+	}
+
+	public static void createCharacter(String type) {
+		switch (type) {
+			case "Warrior":
+				System.out.println("You have chosen the warrior");
+				Game.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
+				Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
+				Game.currentCharacter = myWarrior;
+				break;
+			case "Mage":
+				System.out.println("You have chosen the mage");
+				Game.myMage = new Mage("Hero", 50, 3, 20, 45, 35);
+				Game.myMage.setCurrentHealth(myWarrior.maxHealth);
+				Game.currentCharacter = myMage;
+				break;
+			case "Rogue":
+				System.out.println("You have chosen the rogue");
+				Game.myRogue = new Rogue("Hero", 50, 3, 20, 45, 35);
+				Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
+				Game.currentCharacter = myRogue;
+				break;
+			default:
+				break;
+		}
 	}
 
 	public static void main(String[] args) {
@@ -217,27 +251,29 @@ public class Game {
 			List<Character> characters = loggedInAccount.getCharacters();
 			System.out.println("Professions of characters in the logged-in account:");
 			for (int i = 0; i < characters.size(); i++) {
-                Character character = characters.get(i);
-                System.out.println((i + 1) + ". " + character.getName() + " - " + character.getProfession());
-            }
+				Character character = characters.get(i);
+				System.out.println((i + 1) + ". " + character.getName() + " - " + character.getProfession());
+			}
 			int choice = -1;
 			while (choice < 1 || choice > characters.size()) {
-                System.out.print("Choose a character by entering the corresponding number: ");
-                if (scanner.hasNextInt()) {
-                    choice = scanner.nextInt();
-                    if (choice < 1 || choice > characters.size()) {
-                        System.out.println("Invalid choice. Please try again.");
-                    }
-                } else {
-                    System.out.println("Invalid input. Please enter a number.");
-                    scanner.next(); // Clear invalid input
-                }
-            }
+				System.out.print("Choose a character by entering the corresponding number: ");
+				if (scanner.hasNextInt()) {
+					choice = scanner.nextInt();
+					if (choice < 1 || choice > characters.size()) {
+						System.out.println("Invalid choice. Please try again.");
+					}
+				} else {
+					System.out.println("Invalid input. Please enter a number.");
+					scanner.next(); // Clear invalid input
+				}
+			}
 			Character chosenCharacter = characters.get(choice - 1);
-            System.out.println("You have chosen: " + chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
-			currentCharacter = chosenCharacter;
-			System.out.println(currentCharacter.getProfession());
-			// newGame.run();
+			System.out.println("You have chosen: " +
+			chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
+			
+			createCharacter(chosenCharacter.getProfession());
+
+			newGame.run();
 		}
 	}
 }

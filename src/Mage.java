@@ -3,6 +3,8 @@ import java.util.Random;
 public class Mage extends Character{
 	public Mage(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
         super(name, XP, level, Strength, Charisma, Dexterity);
+		super.setCurrentHealth(super.maxHealth);
+		this.profession = "Mage";
     }
 
 	public Mage(String name, Integer experience, int lvl) {
