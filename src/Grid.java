@@ -368,7 +368,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			}
 			System.out.println();
 
-			System.out.println(Game.currentCharacter.getProfession());
+			System.out.println("->" + Game.currentCharacter.getProfession() + "<-");
+
+			System.out.println();
 
 			if(Game.onSanctuary == true) {
 				System.out.println("You are in a sanctuary!");
