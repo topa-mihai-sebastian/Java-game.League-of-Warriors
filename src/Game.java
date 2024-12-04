@@ -197,7 +197,9 @@ public class Game {
 					System.out.print("Enter password: ");
 					password = scanner.nextLine();
 					if (password.equals(account.getInformation().getCredentials().getPassword())) {
+						System.out.println();
 						System.out.println("Login successful!");
+						System.out.println();
 						loggedIn = accounts.indexOf(account);
 						break;
 					} else {
