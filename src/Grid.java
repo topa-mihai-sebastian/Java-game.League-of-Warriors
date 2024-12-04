@@ -80,7 +80,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		this.get(rowIndex).set(colIndex, cell);
 	}
 
-	public void battle(Enemy enemy, Rogue currentCharacter) {
+	public void battle(Enemy enemy, Character currentCharacter) {
 		Scanner scanner = new Scanner(System.in);
 		String choice;
 		int defaultDamageEnemy, defaultDamage;
@@ -92,85 +92,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			switch (choice) {
 				case "1":
 					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
-					defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					enemy.receiveDamage(defaultDamage);
-					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
-
-					System.out.println("Tu ai " + currentCharacter.getCurrentHealth() + " HP");
-					defaultDamageEnemy = enemy.getDamage();
-					currentCharacter.receiveDamage(currentCharacter.calculateLoseHealth(defaultDamageEnemy));
-					System.out.println("Dupa atacul inamicului mai ai " + currentCharacter.getCurrentHealth() + " HP");
-					break;
-				case "2":
-					// Logica pentru atacul cu vrajă
-					System.out.println("Ai folosit o vrajă!");
-					// Adaugă logica pentru vrajă aici
-					break;
-				default:
-					System.out.println("Invalid choice. Please try again.");
-					break;
-			}
-		}
-		if (enemy.getCurrentHealth() <= 0) {
-			System.out.println("Enemy defeated!");
-		}
-		if (currentCharacter.getCurrentHealth() <= 0) {
-			System.out.println("You have been defeated!");
-		}
-	}
-
-	public void battle(Enemy enemy, Mage currentCharacter) {
-		Scanner scanner = new Scanner(System.in);
-		String choice;
-		int defaultDamageEnemy, defaultDamage;
-		while (enemy.getCurrentHealth() > 0 && currentCharacter.getCurrentHealth() > 0) {
-			System.out.println("Choose how to attack: ");
-			System.out.println("1. Basic attack");
-			System.out.println("2. Spell");
-			choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
-					defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
-					enemy.receiveDamage(defaultDamage);
-					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
-
-					System.out.println("Tu ai " + currentCharacter.getCurrentHealth() + " HP");
-					defaultDamageEnemy = enemy.getDamage();
-					currentCharacter.receiveDamage(currentCharacter.calculateLoseHealth(defaultDamageEnemy));
-					System.out.println("Dupa atacul inamicului mai ai " + currentCharacter.getCurrentHealth() + " HP");
-					break;
-				case "2":
-					// Logica pentru atacul cu vrajă
-					System.out.println("Ai folosit o vrajă!");
-					// Adaugă logica pentru vrajă aici
-					break;
-				default:
-					System.out.println("Invalid choice. Please try again.");
-					break;
-			}
-		}
-		if (enemy.getCurrentHealth() <= 0) {
-			System.out.println("Enemy defeated!");
-		}
-		if (currentCharacter.getCurrentHealth() <= 0) {
-			System.out.println("You have been defeated!");
-		}
-	}
-
-	public void battle(Enemy enemy, Warrior currentCharacter) {
-		Scanner scanner = new Scanner(System.in);
-		String choice;
-		int defaultDamageEnemy, defaultDamage;
-		while (enemy.getCurrentHealth() > 0 && currentCharacter.getCurrentHealth() > 0) {
-			System.out.println("Choose how to attack: ");
-			System.out.println("1. Basic attack");
-			System.out.println("2. Spell");
-			choice = scanner.nextLine();
-			switch (choice) {
-				case "1":
-					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
-					defaultDamage = currentCharacter.calculateDefaultDamage(currentCharacter.getStrength());
+					defaultDamage = currentCharacter.calculateDefaultDamage();
 					enemy.receiveDamage(defaultDamage);
 					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
 
@@ -332,9 +254,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 	}
 
 	public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
 
 	public void printGrid() {
 		clearScreen();
@@ -373,10 +295,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			System.out.println("Current mana: " + Game.currentCharacter.getCurrentMana());
 			System.out.println();
 
-			if(Game.onSanctuary == true) {
+			if (Game.onSanctuary == true) {
 				System.out.println("You are in a sanctuary!");
 				System.out.println("Your new life is:" + Game.myWarrior.getCurrentHealth());
 				System.out.println("Your new mana is:" + Game.myWarrior.getCurrentMana());
+				System.out.println();
 				Game.onSanctuary = false;
 			}
 		}

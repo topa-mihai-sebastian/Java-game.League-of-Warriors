@@ -157,22 +157,22 @@ public class Game {
 		switch (command) {
 			case "w":
 				if (gameGrid.goNorth() == true) {
-					gameGrid.battle(currentEnemy, myWarrior);
+					gameGrid.battle(currentEnemy, currentCharacter);
 				}
 				break;
 			case "s":
 				if (gameGrid.goSouth() == true) {
-					gameGrid.battle(currentEnemy, myWarrior);
+					gameGrid.battle(currentEnemy, currentCharacter);
 				}
 				break;
 			case "d":
 				if (gameGrid.goEast() == true) {
-					gameGrid.battle(currentEnemy, myWarrior);
+					gameGrid.battle(currentEnemy, currentCharacter);
 				}
 				break;
 			case "a":
 				if (gameGrid.goWest() == true) {
-					gameGrid.battle(currentEnemy, myWarrior);
+					gameGrid.battle(currentEnemy, currentCharacter);
 				}
 				break;
 			case "q":
