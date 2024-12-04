@@ -39,7 +39,7 @@ public class Game {
 		characters1.add(new Character("Odysseus Prisco", "Warrior", 1, 15));
 		characters1.add(new Character("Kameron Neppl", "Mage", 1, 10));
 		characters1.add(new Character("Chlarimonde Markert", "Rogue", 1, 35));
-		Information info1 = new Information(new Credentials("marcel@yahoo.com", "6K7GUxjsAc"), "Marcel", "Romania",
+		Information info1 = new Information(new Credentials("marcel@yahoo.com", "1234"), "Marcel", "Romania",
 				Arrays.asList("Metin", "4Story"), 15);
 		accounts.add(new Account(characters1, 0, info1));
 

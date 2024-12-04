@@ -367,9 +367,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 				System.out.println();
 			}
 			System.out.println();
-
+			// Detalii despre caracter in timp real
 			System.out.println("->" + Game.currentCharacter.getProfession() + "<-");
-
+			System.out.println("Current health: " + Game.currentCharacter.getCurrentHealth());
+			System.out.println("Current mana: " + Game.currentCharacter.getCurrentMana());
 			System.out.println();
 
 			if(Game.onSanctuary == true) {
