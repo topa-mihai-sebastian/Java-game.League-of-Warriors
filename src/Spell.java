@@ -1,6 +1,7 @@
 public abstract class Spell {
 	protected int damage;
     protected int manaCost;
+	public String name;
 
     public Spell(int damage, int manaCost) {
         this.damage = damage;
@@ -17,7 +18,7 @@ public abstract class Spell {
 
     @Override
     public String toString() {
-        return "Spell{" +
+        return name + " {" +
                 "damage=" + damage +
                 ", manaCost=" + manaCost +
                 '}';

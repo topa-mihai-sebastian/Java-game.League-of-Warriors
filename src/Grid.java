@@ -104,6 +104,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 				case "2":
 					// Logica pentru atacul cu vrajă
 					System.out.println("Ai folosit o vrajă!");
+					Game.useSpell(Game.currentCharacter, Game.currentEnemy);
 					// Adaugă logica pentru vrajă aici
 					break;
 				default:

@@ -1,6 +1,7 @@
 public class Ice extends Spell {
     public Ice(int damage, int manaCost) {
         super(damage, manaCost);
+		this.name = "Ice";
     }
 
     @Override

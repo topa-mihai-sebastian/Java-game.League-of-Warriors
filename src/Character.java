@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Character extends Entity {
@@ -8,6 +10,7 @@ public class Character extends Entity {
 	public int Strength;
 	public int Charisma;
 	public int Dexterity;
+	public List<Spell> spells;
 
 	public Character() {
 		this.name = "noName";
@@ -30,6 +33,7 @@ public class Character extends Entity {
 		this.level = level;
 		this.XP = experience;
 		Game.currentCharacter.setCurrentMana(1000);
+		this.spells = new ArrayList<Spell>();
 	}
 
 	public Character(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
@@ -96,7 +100,6 @@ public class Character extends Entity {
 	public int calculateDefaultDamage() {
 		Random rd = new Random();
 		boolean halfChance = rd.nextBoolean();
-		String profession = Game.currentCharacter.getProfession();
 		double damageDealt = Strength + Charisma * 0.3 + Dexterity * 0.2;
 		if (getCharisma() >= 50 && halfChance) { // wombo combo
 			damageDealt *= 1.75;

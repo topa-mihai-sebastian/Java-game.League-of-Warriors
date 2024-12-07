@@ -225,6 +225,7 @@ public class Game {
 				Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
 				Game.myWarrior.setCurrentMana(1000);
 				Game.currentCharacter = myWarrior;
+				Game.currentCharacter.spells = generateRandomSpells();
 				break;
 			case "Mage":
 				System.out.println("You have chosen the mage");
@@ -232,6 +233,7 @@ public class Game {
 				Game.myMage.setCurrentHealth(myWarrior.maxHealth);
 				Game.myMage.setCurrentMana(1000);
 				Game.currentCharacter = myMage;
+				Game.currentCharacter.spells = generateRandomSpells();
 				break;
 			case "Rogue":
 				System.out.println("You have chosen the rogue");
@@ -239,11 +241,41 @@ public class Game {
 				Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
 				Game.myRogue.setCurrentMana(1000);
 				Game.currentCharacter = myRogue;
+				Game.currentCharacter.spells = generateRandomSpells();
 				break;
 			default:
 				break;
 		}
 	}
+
+	public static void useSpell(Character currentCharacter, Enemy currentEnemy) {
+		System.out.println(currentCharacter.spells.toString());
+	}
+
+	public static ArrayList<Spell> generateRandomSpells() {
+        ArrayList<Spell> spells = new ArrayList<Spell>();
+        Random rd = new Random();
+        int numSpells = rd.nextInt(4) + 3; // Generate between 3 and 6 spells
+
+        for (int i = 0; i < numSpells; i++) {
+            int damage = rd.nextInt(50) + 10;
+            int manaCost = rd.nextInt(20) + 5;
+            int spellType = rd.nextInt(3);
+            switch (spellType) {
+                case 0:
+                    spells.add(new Fire(damage, manaCost));
+                    break;
+                case 1:
+                    spells.add(new Earth(damage, manaCost));
+                    break;
+                case 2:
+                    spells.add(new Ice(damage, manaCost));
+                    break;
+            }
+        }
+
+        return spells;
+    }
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
