@@ -10,7 +10,7 @@ public class Character extends Entity {
 	public int Strength;
 	public int Charisma;
 	public int Dexterity;
-	public List<Spell> spells;
+	public ArrayList<Spell> spells;
 
 	public Character() {
 		this.name = "noName";
@@ -44,11 +44,14 @@ public class Character extends Entity {
 		this.Charisma = Charisma;
 		this.Dexterity = Dexterity;
 	}
-
-	public void defaultAttack(Character target) {
+	public ArrayList<Spell> getSpells() {
+		return spells;
+	}
+	
+	public void defaultAttack(Enemy target) {
 		int defaultDamage = calculateDefaultDamage();
 		target.receiveDamage(defaultDamage);
-		System.out.println(getName() + " attacks " + target.getName() + " for " + defaultDamage + " damage.");
+		System.out.println(getName() + " attacks " + "enemy" + " for " + defaultDamage + " damage.");
 	}
 
 	public int calculateLoseHealth(int damageDealt) {

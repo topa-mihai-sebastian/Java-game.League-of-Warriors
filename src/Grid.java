@@ -91,6 +91,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			choice = scanner.nextLine();
 			switch (choice) {
 				case "1":
+					clearScreen();
+					printGrid();
+
 					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
 					defaultDamage = Game.currentCharacter.calculateDefaultDamage();
 					enemy.receiveDamage(defaultDamage);
@@ -102,10 +105,23 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 					System.out.println("Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
 					break;
 				case "2":
+					clearScreen();
+					printGrid();
+
 					// Logica pentru atacul cu vrajă
 					System.out.println("Ai folosit o vrajă!");
+					System.out.println("Mai ai " + Game.currentCharacter.getCurrentMana() + " mana!");
+					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
 					Game.useSpell(Game.currentCharacter, Game.currentEnemy);
-					// Adaugă logica pentru vrajă aici
+					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
+
+					//trebuie sa fac ca inamicul sa aleaga random dintre spell si atac
+
+
+					System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					defaultDamageEnemy = enemy.getDamage();
+					Game.currentCharacter.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
+					System.out.println("Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
 					break;
 				default:
 					System.out.println("Invalid choice. Please try again.");

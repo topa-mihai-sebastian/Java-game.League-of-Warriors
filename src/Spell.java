@@ -23,5 +23,5 @@ public abstract class Spell {
                 ", manaCost=" + manaCost +
                 '}';
     }
-	public abstract void cast(Character caster, Character target);
+	public abstract void cast(Character caster, Enemy target);
 }

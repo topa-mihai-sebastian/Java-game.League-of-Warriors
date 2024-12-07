@@ -249,33 +249,67 @@ public class Game {
 	}
 
 	public static void useSpell(Character currentCharacter, Enemy currentEnemy) {
-		System.out.println(currentCharacter.spells.toString());
+		Scanner scanner = new Scanner(System.in);
+
+		ArrayList<Spell> spells = currentCharacter.getSpells();
+
+		if (spells.isEmpty()) {
+			System.out.println("No spells available. Using default attack.");
+			currentCharacter.defaultAttack(currentEnemy);
+			return;
+		}
+		System.out.println("Choose a spell to cast:");
+		for (int i = 0; i < spells.size(); i++) {
+			System.out.println((i + 1) + ". " + spells.get(i));
+		}
+		int choice = -1;
+		while (choice < 1 || choice > spells.size()) {
+			System.out.print("Enter the number of the spell: ");
+			if (scanner.hasNextInt()) {
+				choice = scanner.nextInt();
+				if (choice < 1 || choice > spells.size()) {
+					System.out.println("Invalid choice. Please try again.");
+				}
+			} else {
+				System.out.println("Invalid input. Please enter a number.");
+				scanner.next(); // Clear invalid input
+			}
+		}
+
+		Spell chosenSpell = spells.get(choice - 1);
+		if (currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
+			chosenSpell.cast(currentCharacter, currentEnemy);
+			spells.remove(chosenSpell); // Remove the spell after casting
+		} else {
+			System.out.println("Not enough mana to cast " + chosenSpell + ". Using default attack.");
+			currentCharacter.defaultAttack(currentEnemy);
+		}
 	}
 
 	public static ArrayList<Spell> generateRandomSpells() {
-        ArrayList<Spell> spells = new ArrayList<Spell>();
-        Random rd = new Random();
-        int numSpells = rd.nextInt(4) + 3; // Generate between 3 and 6 spells
+		ArrayList<Spell> spells = new ArrayList<Spell>();
+		Random rd = new Random();
+		int numSpells = rd.nextInt(4) + 3; // Generate between 3 and 6 spells
 
-        for (int i = 0; i < numSpells; i++) {
-            int damage = rd.nextInt(50) + 10;
-            int manaCost = rd.nextInt(20) + 5;
-            int spellType = rd.nextInt(3);
-            switch (spellType) {
-                case 0:
-                    spells.add(new Fire(damage, manaCost));
-                    break;
-                case 1:
-                    spells.add(new Earth(damage, manaCost));
-                    break;
-                case 2:
-                    spells.add(new Ice(damage, manaCost));
-                    break;
-            }
-        }
+		for (int i = 0; i < numSpells; i++) {
+			int damage = rd.nextInt(50) + 10;
+			int manaCost = rd.nextInt(300) + 150;
+			int spellType = rd.nextInt(3);
+			switch (spellType) {
+				case 0:
+					spells.add(new Fire(damage, manaCost));
+					break;
+				case 1:
+					spells.add(new Earth(damage, manaCost));
+					break;
+				case 2:
+					spells.add(new Ice(damage, manaCost));
+					break;
+			}
+		}
 
-        return spells;
-    }
+		return spells;
+	}
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -306,8 +340,8 @@ public class Game {
 			}
 			Character chosenCharacter = characters.get(choice - 1);
 			System.out.println("You have chosen: " +
-			chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
-			
+					chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
+
 			createCharacter(chosenCharacter.getProfession());
 
 			newGame.run();
