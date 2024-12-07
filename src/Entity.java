@@ -39,17 +39,21 @@ public abstract class Entity {
 	}
 	
 	public void lifeRegen(int newHealth) {
-		if(newHealth > maxHealth) {
+		int current = Game.currentCharacter.getCurrentHealth();
+		if(newHealth + current > maxHealth) {
+			Game.currentCharacter.setCurrentHealth(maxHealth);
 			return;
 		}
-		this.currentHealth = newHealth;
+		Game.currentCharacter.setCurrentHealth(newHealth + current);
 	}
 	
 	public void manaRegen(int newMana) {
-		if(newMana > maxMana) {
+		int current = Game.currentCharacter.getCurrentMana();
+		if(newMana + current > maxHealth) {
+			Game.currentCharacter.setCurrentMana(maxMana);
 			return;
 		}
-		this.currentMana = newMana;
+		Game.currentCharacter.setCurrentMana(newMana + current);
 	}
 	
 	public void receiveDamage(int damage) {

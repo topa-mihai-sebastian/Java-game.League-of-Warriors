@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Grid extends ArrayList<ArrayList<Cell>> {
 	public static boolean printable;
 	private int width, height;
-	private Warrior currentCharacter;
+	
 	private Cell currentCell;
 
 	private Grid(int width, int height) {
@@ -40,7 +40,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		grid.currentCell = grid.getCell(playerRow, playerCol);
 		printable = true;
 
-		grid.currentCharacter = warrior;
+		Game.currentCharacter = warrior;
 
 		return grid;
 	}
@@ -84,7 +84,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Scanner scanner = new Scanner(System.in);
 		String choice;
 		int defaultDamageEnemy, defaultDamage;
-		while (enemy.getCurrentHealth() > 0 && currentCharacter.getCurrentHealth() > 0) {
+		while (enemy.getCurrentHealth() > 0 && Game.currentCharacter.getCurrentHealth() > 0) {
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
 			System.out.println("2. Spell");
@@ -92,14 +92,14 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			switch (choice) {
 				case "1":
 					System.out.println("Inamicul are " + enemy.getCurrentHealth() + " HP");
-					defaultDamage = currentCharacter.calculateDefaultDamage();
+					defaultDamage = Game.currentCharacter.calculateDefaultDamage();
 					enemy.receiveDamage(defaultDamage);
 					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
 
-					System.out.println("Tu ai " + currentCharacter.getCurrentHealth() + " HP");
+					System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
 					defaultDamageEnemy = enemy.getDamage();
-					currentCharacter.receiveDamage(currentCharacter.calculateLoseHealth(defaultDamageEnemy));
-					System.out.println("Dupa atacul inamicului mai ai " + currentCharacter.getCurrentHealth() + " HP");
+					Game.currentCharacter.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
+					System.out.println("Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
 					break;
 				case "2":
 					// Logica pentru atacul cu vrajă
@@ -114,7 +114,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (enemy.getCurrentHealth() <= 0) {
 			System.out.println("Enemy defeated!");
 		}
-		if (currentCharacter.getCurrentHealth() <= 0) {
+		if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			System.out.println("You have been defeated!");
 		}
 	}
@@ -144,11 +144,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 
 		if (aux == Entity.CellEntityType.SANCTUARY) {
 			Game.onSanctuary = true;
-			Random rd = new Random();
-			int bonus = rd.nextInt(35) + 35;
-			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
-			bonus = rd.nextInt(300) + 300;
-			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+			int bonus = 35;
+			Game.currentCharacter.lifeRegen(bonus);
+			bonus = 300;
+			Game.currentCharacter.manaRegen(bonus);
 		}
 
 		return aux == Entity.CellEntityType.ENEMY;
@@ -178,11 +177,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
 			Game.onSanctuary = true;
-			Random rd = new Random();
-			int bonus = rd.nextInt(35) + 35;
-			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
-			bonus = rd.nextInt(300) + 300;
-			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+			int bonus = 35;
+			Game.currentCharacter.lifeRegen(bonus);
+			bonus = 300;
+			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -211,11 +209,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
 			Game.onSanctuary = true;
-			Random rd = new Random();
-			int bonus = rd.nextInt(35) + 35;
-			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
-			bonus = rd.nextInt(300) + 300;
-			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+			int bonus = 35;
+			Game.currentCharacter.lifeRegen(bonus);
+			bonus = 300;
+			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -244,11 +241,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
 			Game.onSanctuary = true;
-			Random rd = new Random();
-			int bonus = rd.nextInt(35) + 35;
-			currentCharacter.lifeRegen(currentCharacter.getCurrentHealth() + bonus);
-			bonus = rd.nextInt(300) + 300;
-			currentCharacter.manaRegen(currentCharacter.getCurrentHealth() + bonus);
+			int bonus = 35;
+			Game.currentCharacter.lifeRegen(bonus);
+			bonus = 300;
+			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}

@@ -16,7 +16,6 @@ public class Enemy extends Entity {
         Random rd = new Random();
 
         // Setează viața și mana cu valori aleatoare
-        setCurrentHealth(rd.nextInt(501) + 500); // Interval: 500 - 1000
         setCurrentHealth(rd.nextInt(51) + 50); // Interval: 50 - 100
 
         // Setează damage-ul de bază cu o valoare aleatoare
@@ -58,9 +57,9 @@ public class Enemy extends Entity {
     @Override
     public int getDamage() {
         Random rd = new Random();
-        boolean doubleDamage = rd.nextBoolean(); // 50% șansă
+        double chance = rd.nextDouble();
         int baseDamage = this.Strength;
-
+		boolean doubleDamage = chance < 0.1; //10% sansa
         if (doubleDamage) {
             baseDamage *= 2;
         }
