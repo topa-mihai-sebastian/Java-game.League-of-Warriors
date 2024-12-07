@@ -223,18 +223,21 @@ public class Game {
 				System.out.println("You have chosen the warrior");
 				Game.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
 				Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
+				Game.myWarrior.setCurrentMana(1000);
 				Game.currentCharacter = myWarrior;
 				break;
 			case "Mage":
 				System.out.println("You have chosen the mage");
 				Game.myMage = new Mage("Hero", 50, 3, 20, 45, 35);
 				Game.myMage.setCurrentHealth(myWarrior.maxHealth);
+				Game.myMage.setCurrentMana(1000);
 				Game.currentCharacter = myMage;
 				break;
 			case "Rogue":
 				System.out.println("You have chosen the rogue");
 				Game.myRogue = new Rogue("Hero", 50, 3, 20, 45, 35);
 				Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
+				Game.myRogue.setCurrentMana(1000);
 				Game.currentCharacter = myRogue;
 				break;
 			default:

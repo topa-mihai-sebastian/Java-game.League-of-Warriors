@@ -29,6 +29,7 @@ public class Character extends Entity {
 		this.profession = profession;
 		this.level = level;
 		this.XP = experience;
+		Game.currentCharacter.setCurrentMana(1000);
 	}
 
 	public Character(String name, int XP, int level, int Strength, int Charisma, int Dexterity) {
