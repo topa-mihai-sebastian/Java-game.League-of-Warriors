@@ -143,10 +143,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 
 		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Random rd = new Random();
 			Game.onSanctuary = true;
-			int bonus = 35;
+			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = 300;
+			bonus = rd.nextInt(35) + 300;;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 
@@ -176,10 +177,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentEnemy = new Enemy();
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Random rd = new Random();
 			Game.onSanctuary = true;
-			int bonus = 35;
+			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = 300;
+			bonus = rd.nextInt(35) + 300;;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -208,10 +210,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentEnemy = new Enemy();
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Random rd = new Random();
 			Game.onSanctuary = true;
-			int bonus = 35;
+			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = 300;
+			bonus = rd.nextInt(35) + 300;;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -240,10 +243,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentEnemy = new Enemy();
 		}
 		if (aux == Entity.CellEntityType.SANCTUARY) {
+			Random rd = new Random();
 			Game.onSanctuary = true;
-			int bonus = 35;
+			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = 300;
+			bonus = rd.nextInt(35) + 300;;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
