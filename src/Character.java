@@ -41,6 +41,12 @@ public class Character extends Entity {
 		this.Dexterity = Dexterity;
 	}
 
+	public void defaultAttack(Character target) {
+		int defaultDamage = calculateDefaultDamage();
+		target.receiveDamage(defaultDamage);
+		System.out.println(getName() + " attacks " + target.getName() + " for " + defaultDamage + " damage.");
+	}
+
 	public int calculateLoseHealth(int damageDealt) {
 		Random rd = new Random();
 		boolean halfChance = rd.nextBoolean();
