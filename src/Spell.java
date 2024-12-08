@@ -24,4 +24,5 @@ public abstract class Spell {
                 '}';
     }
 	public abstract void cast(Character caster, Enemy target);
+	public abstract void cast(Enemy caster, Character target);
 }

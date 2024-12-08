@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Grid extends ArrayList<ArrayList<Cell>> {
 	public static boolean printable;
 	private int width, height;
-	
+
 	private Cell currentCell;
 
 	private Grid(int width, int height) {
@@ -84,6 +84,8 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Scanner scanner = new Scanner(System.in);
 		String choice;
 		int defaultDamageEnemy, defaultDamage;
+		Random rd = new Random();
+		boolean enemyAtack;
 		while (enemy.getCurrentHealth() > 0 && Game.currentCharacter.getCurrentHealth() > 0) {
 			System.out.println("Choose how to attack: ");
 			System.out.println("1. Basic attack");
@@ -99,10 +101,22 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 					enemy.receiveDamage(defaultDamage);
 					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
 
-					System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
-					defaultDamageEnemy = enemy.getDamage();
-					Game.currentCharacter.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
-					System.out.println("Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					enemyAtack = rd.nextBoolean();
+					if (enemyAtack) {
+						System.out.println("Inamicul ataca cu un atac de baza!");
+						System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+						defaultDamageEnemy = enemy.getDamage();
+						Game.currentCharacter
+								.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
+						System.out.println(
+								"Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					} else {
+						System.out.println("Inamicul ataca cu o abilitate!");
+						System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+						Game.useSpell(enemy, currentCharacter);
+						System.out.println(
+								"Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					}
 					break;
 				case "2":
 					clearScreen();
@@ -115,13 +129,24 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 					Game.useSpell(Game.currentCharacter, Game.currentEnemy);
 					System.out.println("Acum inamicul are " + enemy.getCurrentHealth() + " HP");
 
-					//trebuie sa fac ca inamicul sa aleaga random dintre spell si atac
+					// trebuie sa fac ca inamicul sa aleaga random dintre spell si atac
 
-
-					System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
-					defaultDamageEnemy = enemy.getDamage();
-					Game.currentCharacter.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
-					System.out.println("Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					enemyAtack = rd.nextBoolean();
+					if (enemyAtack) {
+						System.out.println("Inamicul ataca cu un atac de baza!");
+						System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+						defaultDamageEnemy = enemy.getDamage();
+						Game.currentCharacter
+								.receiveDamage(Game.currentCharacter.calculateLoseHealth(defaultDamageEnemy));
+						System.out.println(
+								"Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					} else {
+						System.out.println("Inamicul ataca cu o abilitate!");
+						System.out.println("Tu ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+						Game.useSpell(enemy, currentCharacter);
+						System.out.println(
+								"Dupa atacul inamicului mai ai " + Game.currentCharacter.getCurrentHealth() + " HP");
+					}
 					break;
 				default:
 					System.out.println("Invalid choice. Please try again.");
@@ -164,7 +189,8 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.onSanctuary = true;
 			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = rd.nextInt(35) + 300;;
+			bonus = rd.nextInt(35) + 300;
+			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 
@@ -198,7 +224,8 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.onSanctuary = true;
 			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = rd.nextInt(35) + 300;;
+			bonus = rd.nextInt(35) + 300;
+			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -231,7 +258,8 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.onSanctuary = true;
 			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = rd.nextInt(35) + 300;;
+			bonus = rd.nextInt(35) + 300;
+			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -264,7 +292,8 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.onSanctuary = true;
 			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
-			bonus = rd.nextInt(35) + 300;;
+			bonus = rd.nextInt(35) + 300;
+			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 		return aux == Entity.CellEntityType.ENEMY;

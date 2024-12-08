@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Enemy extends Entity {
@@ -8,8 +9,8 @@ public class Enemy extends Entity {
     private int fireImmunity;
     private int iceImmunity;
     private int earthImmunity;
-
-    private String[] abilities;
+	private int currentMana;
+    private ArrayList<Spell> spells;
 
     // Constructor pentru inițializarea câmpurilor
     public Enemy() {
@@ -27,15 +28,16 @@ public class Enemy extends Entity {
         this.fireImmunity = rd.nextInt(101); // Interval: 0 - 100
         this.iceImmunity = rd.nextInt(101); // Interval: 0 - 100
         this.earthImmunity = rd.nextInt(101); // Interval: 0 - 100
-
+		this.currentMana = 100 + rd.nextInt(100);
         // Instantiază abilitățile aleator
-        int numAbilities = rd.nextInt(4) + 3; // Interval: 3 - 6
-        this.abilities = new String[numAbilities];
-        String[] possibleAbilities = {"Fireball", "Ice Spike", "Earthquake"};
-        for (int i = 0; i < numAbilities; i++) {
-            this.abilities[i] = possibleAbilities[rd.nextInt(possibleAbilities.length)];
-        }
+		this.spells= Game.generateRandomSpells();
     }
+
+	public void defaultAttack(Character target) {
+		int defaultDamage = getDamage();
+		target.receiveDamage(defaultDamage);
+		System.out.println(Game.currentCharacter.profession + " attacks " + "enemy" + " for " + defaultDamage + " damage.");
+	}
 
     @Override
     public void receiveDamage(int damage) {
@@ -53,6 +55,10 @@ public class Enemy extends Entity {
             setCurrentHealth(0); 
         }
     }
+
+	public ArrayList<Spell> getSpells() {
+		return spells;
+	}
 
     @Override
     public int getDamage() {
@@ -86,9 +92,5 @@ public class Enemy extends Entity {
 
     public int getEarthImmunity() {
         return earthImmunity;
-    }
-
-    public String[] getAbilities() {
-        return abilities;
     }
 }
