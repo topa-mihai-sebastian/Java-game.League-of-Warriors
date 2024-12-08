@@ -287,29 +287,34 @@ public class Game {
 	}
 
 	public static ArrayList<Spell> generateRandomSpells() {
-		ArrayList<Spell> spells = new ArrayList<Spell>();
-		Random rd = new Random();
-		int numSpells = rd.nextInt(4) + 3; // Generate between 3 and 6 spells
+        ArrayList<Spell> spells = new ArrayList<Spell>();
+        Random rd = new Random();
 
-		for (int i = 0; i < numSpells; i++) {
-			int damage = rd.nextInt(50) + 10;
-			int manaCost = rd.nextInt(300) + 150;
-			int spellType = rd.nextInt(3);
-			switch (spellType) {
-				case 0:
-					spells.add(new Fire(damage, manaCost));
-					break;
-				case 1:
-					spells.add(new Earth(damage, manaCost));
-					break;
-				case 2:
-					spells.add(new Ice(damage, manaCost));
-					break;
-			}
-		}
+        // Adaugă câte un spell din fiecare categorie
+        spells.add(new Fire(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
+        spells.add(new Earth(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
+        spells.add(new Ice(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
 
-		return spells;
-	}
+        // Generează restul de spell-uri aleatoriu
+        int numSpells = rd.nextInt(4); // Generate between 3 and 6 spells
+        for (int i = 0; i < numSpells; i++) {
+            int damage = rd.nextInt(50) + 10;
+            int manaCost = rd.nextInt(300) + 150;
+            int spellType = rd.nextInt(3);
+            switch (spellType) {
+                case 0:
+                    spells.add(new Fire(damage, manaCost));
+                    break;
+                case 1:
+                    spells.add(new Earth(damage, manaCost));
+                    break;
+                case 2:
+                    spells.add(new Ice(damage, manaCost));
+                    break;
+            }
+        }
+        return spells;
+    }
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
