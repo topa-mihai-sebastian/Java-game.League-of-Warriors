@@ -5,11 +5,15 @@ public class Warrior extends Character {
         super(name, XP, level, Strength, Charisma, Dexterity);
 		super.setCurrentHealth(super.maxHealth);
 		this.profession = "Warrior";
+		Random rd = new Random();
+		this.fireImmunity = rd.nextInt(31); // Interval: 0 - 30
+        this.iceImmunity = rd.nextInt(31); // Interval: 0 - 30
+        this.earthImmunity = rd.nextInt(31); // Interval: 0 - 30
     }
 	//constructor ca in test
-	public Warrior(String name, Integer experience, int lvl) {
-		super(name, experience, lvl);
-	}
+	//public Warrior(String name, Integer experience, int lvl) {
+	//	super(name, experience, lvl);
+	//}
 
 	public int calculateLoseHealth(int damageDealt) {
 		Random rd = new Random();

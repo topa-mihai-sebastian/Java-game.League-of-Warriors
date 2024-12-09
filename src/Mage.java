@@ -5,6 +5,10 @@ public class Mage extends Character{
         super(name, XP, level, Strength, Charisma, Dexterity);
 		super.setCurrentHealth(super.maxHealth);
 		this.profession = "Mage";
+		Random rd = new Random();
+		this.fireImmunity = rd.nextInt(31); // Interval: 0 - 30
+        this.iceImmunity = rd.nextInt(31); // Interval: 0 - 30
+        this.earthImmunity = rd.nextInt(31); // Interval: 0 - 30
     }
 
 	public Mage(String name, Integer experience, int lvl) {

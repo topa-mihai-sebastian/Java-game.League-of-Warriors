@@ -278,6 +278,15 @@ public class Game {
 
 		Spell chosenSpell = spells.get(choice - 1);
 		if (currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
+			if(chosenSpell.name.equals("Earth")) {
+				chosenSpell.damage = chosenSpell.damage - currentEnemy.getEarthImmunity();
+			}
+			if(chosenSpell.name.equals("Fire")) {
+				chosenSpell.damage = chosenSpell.damage - currentEnemy.getFireImmunity();
+			}
+			if(chosenSpell.name.equals("Ice")) {
+				chosenSpell.damage = chosenSpell.damage - currentEnemy.getIceImmunity();
+			}
 			chosenSpell.cast(currentCharacter, currentEnemy);
 			spells.remove(chosenSpell); // Remove the spell after casting
 		} else {
@@ -301,6 +310,15 @@ public class Game {
         Spell chosenSpell = spells.get(choice);
 
         if (currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
+			if(chosenSpell.name.equals("Earth")) {
+				chosenSpell.damage = chosenSpell.damage - currentCharacter.getEarthImmunity();
+			}
+			if(chosenSpell.name.equals("Fire")) {
+				chosenSpell.damage = chosenSpell.damage - currentCharacter.getFireImmunity();
+			}
+			if(chosenSpell.name.equals("Ice")) {
+				chosenSpell.damage = chosenSpell.damage - currentCharacter.getIceImmunity();
+			}
             chosenSpell.cast(currentEnemy, currentCharacter);
             spells.remove(chosenSpell); // Remove the spell after casting
         } else {
@@ -314,15 +332,15 @@ public class Game {
 		Random rd = new Random();
 
 		// Adaugă câte un spell din fiecare categorie
-		spells.add(new Fire(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
-		spells.add(new Earth(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
-		spells.add(new Ice(rd.nextInt(50) + 10, rd.nextInt(300) + 150));
+		spells.add(new Fire(rd.nextInt(50) + 25, rd.nextInt(300) + 100));
+		spells.add(new Earth(rd.nextInt(50) + 25, rd.nextInt(300) + 100));
+		spells.add(new Ice(rd.nextInt(50) + 25, rd.nextInt(300) + 100));
 
 		// Generează restul de spell-uri aleatoriu
 		int numSpells = rd.nextInt(4); // Generate between 3 and 6 spells
 		for (int i = 0; i < numSpells; i++) {
-			int damage = rd.nextInt(50) + 10;
-			int manaCost = rd.nextInt(300) + 150;
+			int damage = rd.nextInt(50) + 25;
+			int manaCost = rd.nextInt(300) + 100;
 			int spellType = rd.nextInt(3);
 			switch (spellType) {
 				case 0:

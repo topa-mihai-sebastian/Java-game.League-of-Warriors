@@ -12,6 +12,10 @@ public class Character extends Entity {
 	public int Dexterity;
 	public ArrayList<Spell> spells;
 
+	public int fireImmunity;
+    public int iceImmunity;
+    public int earthImmunity;
+
 	public Character() {
 		this.name = "noName";
 		this.XP = 0;
@@ -48,6 +52,18 @@ public class Character extends Entity {
 		return spells;
 	}
 	
+	public int getEarthImmunity() {
+		return earthImmunity;
+	}
+
+	public int getIceImmunity() {
+		return iceImmunity;
+	}
+
+	public int getFireImmunity() {
+		return fireImmunity;
+	}
+
 	public void defaultAttack(Enemy target) {
 		int defaultDamage = calculateDefaultDamage();
 		target.receiveDamage(defaultDamage);
