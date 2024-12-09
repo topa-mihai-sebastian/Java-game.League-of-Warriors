@@ -10,7 +10,7 @@ public class Game {
 	public static Rogue myRogue;
 
 	public ArrayList<Account> accountList;
-	public Grid gameGrid;
+	public static Grid gameGrid;
 	public static Character currentCharacter;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;

@@ -21,7 +21,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 	}
 
-	public static Grid createTheGrid(int width, int height, Warrior warrior) {
+	public static Grid createTheGrid(int width, int height, Character character) {
 		if (width > 10 || height > 10) {
 			throw new IllegalArgumentException("Maximum dimension is 10x10!");
 		}
@@ -40,7 +40,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		grid.currentCell = grid.getCell(playerRow, playerCol);
 		printable = true;
 
-		Game.currentCharacter = warrior;
+		Game.currentCharacter = character;
 
 		return grid;
 	}
@@ -161,6 +161,23 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 	}
 
+	public void usePortal() {
+		clearScreen();
+
+		System.out.println("Ai intrat in portal!");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Apasa enter pentru a genera noua harta: ");
+		scanner.nextLine();
+		// aici fa niste upgrade-uri la caracter
+		int width, height;
+		Random rd = new Random();
+
+		width = rd.nextInt(7) + 4;
+		height = rd.nextInt(7) + 4;
+
+		Game.gameGrid = createTheGrid(width, height, Game.currentCharacter);
+	}
+
 	public boolean goNorth() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
@@ -194,6 +211,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentCharacter.manaRegen(bonus);
 		}
 
+		if(aux == Entity.CellEntityType.PORTAL) {
+			usePortal();
+		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
@@ -227,6 +247,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			bonus = rd.nextInt(35) + 300;
 			;
 			Game.currentCharacter.manaRegen(bonus);
+		}
+		if(aux == Entity.CellEntityType.PORTAL) {
+			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -262,6 +285,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
+		if(aux == Entity.CellEntityType.PORTAL) {
+			usePortal();
+		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
@@ -295,6 +321,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			bonus = rd.nextInt(35) + 300;
 			;
 			Game.currentCharacter.manaRegen(bonus);
+		}
+		if(aux == Entity.CellEntityType.PORTAL) {
+			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}

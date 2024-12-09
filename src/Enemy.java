@@ -32,7 +32,10 @@ public class Enemy extends Entity {
         // Instantiază abilitățile aleator
 		this.spells= Game.generateRandomSpells();
     }
-
+	
+	public int getCurrentMana() {
+		return currentMana;
+	}
 	public void defaultAttack(Character target) {
 		int defaultDamage = getDamage();
 		target.receiveDamage(defaultDamage);

@@ -70,6 +70,4 @@ public abstract class Entity {
 	
 	public abstract int getDamage();
 	public abstract void useAbility(CellEntityType abilityType, Character enemy);
-
-	// TODO: metoda pentru folosirea de abilitati 
 }
