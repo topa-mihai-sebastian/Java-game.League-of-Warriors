@@ -6,9 +6,9 @@ public class Warrior extends Character {
 		super.setCurrentHealth(super.maxHealth);
 		this.profession = "Warrior";
 		Random rd = new Random();
-		this.fireImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.iceImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.earthImmunity = rd.nextInt(31); // Interval: 0 - 30
+		this.fireImmunity = true;
+        this.iceImmunity = false;
+        this.earthImmunity = false;
     }
 	//constructor ca in test
 	//public Warrior(String name, Integer experience, int lvl) {

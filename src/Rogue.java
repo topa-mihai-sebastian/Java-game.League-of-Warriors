@@ -6,9 +6,9 @@ public class Rogue extends Character {
 		super.setCurrentHealth(super.maxHealth);
 		this.profession = "Rogue";
 		Random rd = new Random();
-		this.fireImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.iceImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.earthImmunity = rd.nextInt(31); // Interval: 0 - 30
+		this.fireImmunity = false;
+        this.iceImmunity = false;
+        this.earthImmunity = true;
     }
 
 	public Rogue(String name, Integer experience, int lvl) {

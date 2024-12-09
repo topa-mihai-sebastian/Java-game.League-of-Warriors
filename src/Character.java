@@ -12,9 +12,9 @@ public class Character extends Entity {
 	public int Dexterity;
 	public ArrayList<Spell> spells;
 
-	public int fireImmunity;
-    public int iceImmunity;
-    public int earthImmunity;
+	public boolean fireImmunity;
+    public boolean iceImmunity;
+    public boolean earthImmunity;
 
 	public Character() {
 		this.name = "noName";
@@ -52,15 +52,15 @@ public class Character extends Entity {
 		return spells;
 	}
 	
-	public int getEarthImmunity() {
+	public boolean getEarthImmunity() {
 		return earthImmunity;
 	}
 
-	public int getIceImmunity() {
+	public boolean getIceImmunity() {
 		return iceImmunity;
 	}
 
-	public int getFireImmunity() {
+	public boolean getFireImmunity() {
 		return fireImmunity;
 	}
 

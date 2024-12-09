@@ -6,9 +6,9 @@ public class Enemy extends Entity {
     private int Charisma;
     private int Dexterity;
 
-    private int fireImmunity;
-    private int iceImmunity;
-    private int earthImmunity;
+    private boolean fireImmunity;
+    private boolean iceImmunity;
+    private boolean earthImmunity;
 	private int currentMana;
     private ArrayList<Spell> spells;
 
@@ -25,9 +25,9 @@ public class Enemy extends Entity {
 		this.Charisma = rd.nextInt(21) + 10; // Interval: 10 - 30
 
         // Setează imunitățile cu valori aleatoare
-        this.fireImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.iceImmunity = rd.nextInt(31); // Interval: 0 - 30
-        this.earthImmunity = rd.nextInt(31); // Interval: 0 - 30
+        this.fireImmunity = rd.nextBoolean();
+        this.iceImmunity = rd.nextBoolean();
+        this.earthImmunity = rd.nextBoolean();
 		this.currentMana = 100 + rd.nextInt(100);
         // Instantiază abilitățile aleator
 		this.spells= Game.generateRandomSpells();
@@ -85,15 +85,15 @@ public class Enemy extends Entity {
     }
 
     // Getteri pentru imunități și abilități (opțional)
-    public int getFireImmunity() {
+    public boolean getFireImmunity() {
         return fireImmunity;
     }
 
-    public int getIceImmunity() {
+    public boolean getIceImmunity() {
         return iceImmunity;
     }
 
-    public int getEarthImmunity() {
+    public boolean getEarthImmunity() {
         return earthImmunity;
     }
 }

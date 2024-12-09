@@ -160,6 +160,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.5));
 			Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.5));
 			Game.currentCharacter.setCharisma((int) (Game.currentCharacter.getCharisma() * 1.5));
+			Game.currentCharacter.spells = Game.generateRandomSpells();
 		}
 		if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			System.out.println("You have been defeated!");

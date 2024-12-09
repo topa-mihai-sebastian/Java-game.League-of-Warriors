@@ -278,14 +278,17 @@ public class Game {
 
 		Spell chosenSpell = spells.get(choice - 1);
 		if (currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if(chosenSpell.name.equals("Earth")) {
-				chosenSpell.damage = chosenSpell.damage - currentEnemy.getEarthImmunity();
+			if(chosenSpell.name.equals("Earth") && currentEnemy.getEarthImmunity() == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Fire")) {
-				chosenSpell.damage = chosenSpell.damage - currentEnemy.getFireImmunity();
+			if(chosenSpell.name.equals("Fire") && currentEnemy.getFireImmunity() == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Ice")) {
-				chosenSpell.damage = chosenSpell.damage - currentEnemy.getIceImmunity();
+			if(chosenSpell.name.equals("Ice") && currentEnemy.getIceImmunity() == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
 			chosenSpell.cast(currentCharacter, currentEnemy);
 			spells.remove(chosenSpell); // Remove the spell after casting
@@ -310,14 +313,17 @@ public class Game {
         Spell chosenSpell = spells.get(choice);
 
         if (currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if(chosenSpell.name.equals("Earth")) {
-				chosenSpell.damage = chosenSpell.damage - currentCharacter.getEarthImmunity();
+			if(chosenSpell.name.equals("Earth") && currentCharacter.earthImmunity == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Fire")) {
-				chosenSpell.damage = chosenSpell.damage - currentCharacter.getFireImmunity();
+			if(chosenSpell.name.equals("Fire") && currentCharacter.fireImmunity == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Ice")) {
-				chosenSpell.damage = chosenSpell.damage - currentCharacter.getIceImmunity();
+			if(chosenSpell.name.equals("Ice") && currentCharacter.iceImmunity == true) {
+				System.out.println("IMMUNITY!");
+				chosenSpell.damage = 0;
 			}
             chosenSpell.cast(currentEnemy, currentCharacter);
             spells.remove(chosenSpell); // Remove the spell after casting
