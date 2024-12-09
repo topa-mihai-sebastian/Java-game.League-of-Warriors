@@ -155,12 +155,18 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (enemy.getCurrentHealth() <= 0) {
 			System.out.println("Enemy defeated!");
+			Game.currentCharacter.setCurrentHealth(100);
+			Game.currentCharacter.setCurrentMana(1000);
+			Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.5));
+			Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.5));
+			Game.currentCharacter.setCharisma((int) (Game.currentCharacter.getCharisma() * 1.5));
 		}
 		if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			System.out.println("You have been defeated!");
 		}
 	}
 
+	@SuppressWarnings("resource")
 	public void usePortal() {
 		clearScreen();
 
@@ -169,12 +175,16 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		System.out.println("Apasa enter pentru a genera noua harta: ");
 		scanner.nextLine();
 		// aici fa niste upgrade-uri la caracter
-		int width, height;
+		
 		Random rd = new Random();
 
-		width = rd.nextInt(7) + 4;
-		height = rd.nextInt(7) + 4;
-
+		int width = rd.nextInt(7) + 4;
+		int height = rd.nextInt(7) + 4;
+		Game.currentCharacter.setCurrentHealth(100);
+		Game.currentCharacter.setCurrentMana(1000);
+		Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.1));
+		Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.1));
+		Game.currentCharacter.setCharisma((int) (Game.currentCharacter.getCharisma() * 1.1));
 		Game.gameGrid = createTheGrid(width, height, Game.currentCharacter);
 	}
 
@@ -368,6 +378,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			System.out.println("->" + Game.currentCharacter.getProfession() + "<-");
 			System.out.println("Current health: " + Game.currentCharacter.getCurrentHealth());
 			System.out.println("Current mana: " + Game.currentCharacter.getCurrentMana());
+			System.out.println("Current strength: " + Game.currentCharacter.getStrength());
+			System.out.println("Current dexterity: " + Game.currentCharacter.getDexterity());
+			System.out.println("Current charisma: " + Game.currentCharacter.getCharisma());
 			System.out.println();
 
 			if (Game.onSanctuary == true) {
