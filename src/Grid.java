@@ -6,7 +6,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 	public static boolean printable;
 	private int width, height;
 
-	private Cell currentCell;
+	public Cell currentCell;
 
 	private Grid(int width, int height) {
 		this.width = width;

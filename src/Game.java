@@ -28,7 +28,7 @@ public class Game {
 		Game.myRogue = new Rogue("Hero", 50, 3, 20, 45, 35);
 		Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
 
-		this.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
+		Game.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
 	}
 
 	public static ArrayList<Account> createAccounts() {
