@@ -155,7 +155,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (enemy.getCurrentHealth() <= 0) {
 			System.out.println("Enemy defeated!");
-			Game.currentCharacter.setCurrentHealth(100);
+			Game.currentCharacter.setCurrentHealth(Game.currentCharacter.getCurrentHealth() * 2);
+			if(Game.currentCharacter.getCurrentHealth() > 100) {
+				Game.currentCharacter.setCurrentHealth(100);
+			}
 			Game.currentCharacter.setCurrentMana(1000);
 			Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.5));
 			Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.5));

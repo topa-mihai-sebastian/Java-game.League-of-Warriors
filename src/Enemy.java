@@ -25,9 +25,24 @@ public class Enemy extends Entity {
 		this.Charisma = rd.nextInt(21) + 10; // Interval: 10 - 30
 
         // Setează imunitățile cu valori aleatoare
-        this.fireImmunity = rd.nextBoolean();
-        this.iceImmunity = rd.nextBoolean();
-        this.earthImmunity = rd.nextBoolean();
+		int immunity = rd.nextInt(3) + 1;
+
+        this.fireImmunity = false;
+        this.iceImmunity = false;
+        this.earthImmunity = false;
+		switch (immunity) {
+			case 1:
+				this.fireImmunity = true;
+				break;
+			case 2:
+				this.iceImmunity = true;
+				break;
+			case 3:
+				this.earthImmunity = true;
+				break;
+			default:
+				break;
+		}
 		this.currentMana = 100 + rd.nextInt(100);
         // Instantiază abilitățile aleator
 		this.spells= Game.generateRandomSpells();

@@ -389,7 +389,6 @@ public class Game {
 				chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
 
 		createCharacter(chosenCharacter.getProfession());
-		Game.currentCharacter.setCurrentHealth(1);
 		game.run();
 	}
 
