@@ -8,12 +8,13 @@ public class Game {
 	public static Warrior myWarrior;
 	public static Mage myMage;
 	public static Rogue myRogue;
-
+	public static Account loggedInAccount;
 	public ArrayList<Account> accountList;
 	public static Grid gameGrid;
 	public static Character currentCharacter;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
+	public static Game game;
 
 	public Game() {
 		Random rd = new Random();
@@ -278,15 +279,15 @@ public class Game {
 
 		Spell chosenSpell = spells.get(choice - 1);
 		if (currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if(chosenSpell.name.equals("Earth") && currentEnemy.getEarthImmunity() == true) {
+			if (chosenSpell.name.equals("Earth") && currentEnemy.getEarthImmunity() == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Fire") && currentEnemy.getFireImmunity() == true) {
+			if (chosenSpell.name.equals("Fire") && currentEnemy.getFireImmunity() == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Ice") && currentEnemy.getIceImmunity() == true) {
+			if (chosenSpell.name.equals("Ice") && currentEnemy.getIceImmunity() == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
@@ -297,41 +298,42 @@ public class Game {
 			currentCharacter.defaultAttack(currentEnemy);
 		}
 	}
+
 	// functia asta este apelata cand inamicul face un atac
 	public static void useSpell(Enemy currentEnemy, Character currentCharacter) {
-        Random rd = new Random();
-        List<Spell> spells = currentEnemy.getSpells();
+		Random rd = new Random();
+		List<Spell> spells = currentEnemy.getSpells();
 
-        if (spells.isEmpty()) {
-            System.out.println("No spells available. Using default attack.");
-            currentEnemy.defaultAttack(currentCharacter);
-            return;
-        }
+		if (spells.isEmpty()) {
+			System.out.println("No spells available. Using default attack.");
+			currentEnemy.defaultAttack(currentCharacter);
+			return;
+		}
 
-        // Inamicul alege o abilitate aleatorie
-        int choice = rd.nextInt(spells.size());
-        Spell chosenSpell = spells.get(choice);
+		// Inamicul alege o abilitate aleatorie
+		int choice = rd.nextInt(spells.size());
+		Spell chosenSpell = spells.get(choice);
 
-        if (currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if(chosenSpell.name.equals("Earth") && currentCharacter.earthImmunity == true) {
+		if (currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
+			if (chosenSpell.name.equals("Earth") && currentCharacter.earthImmunity == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Fire") && currentCharacter.fireImmunity == true) {
+			if (chosenSpell.name.equals("Fire") && currentCharacter.fireImmunity == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
-			if(chosenSpell.name.equals("Ice") && currentCharacter.iceImmunity == true) {
+			if (chosenSpell.name.equals("Ice") && currentCharacter.iceImmunity == true) {
 				System.out.println("IMMUNITY!");
 				chosenSpell.damage = 0;
 			}
-            chosenSpell.cast(currentEnemy, currentCharacter);
-            spells.remove(chosenSpell); // Remove the spell after casting
-        } else {
-            System.out.println("Not enough mana to cast " + chosenSpell + ". Using default attack.");
-            currentEnemy.defaultAttack(currentCharacter);
-        }
-    }
+			chosenSpell.cast(currentEnemy, currentCharacter);
+			spells.remove(chosenSpell); // Remove the spell after casting
+		} else {
+			System.out.println("Not enough mana to cast " + chosenSpell + ". Using default attack.");
+			currentEnemy.defaultAttack(currentCharacter);
+		}
+	}
 
 	public static ArrayList<Spell> generateRandomSpells() {
 		ArrayList<Spell> spells = new ArrayList<Spell>();
@@ -363,40 +365,49 @@ public class Game {
 		return spells;
 	}
 
+	public static void chooseCharacter(Game game, Account loggedInAccount) {
+		Scanner scanner = new Scanner(System.in);
+		int choice = -1;
+		while (choice < 1 || choice > loggedInAccount.getCharacters().size()) {
+			System.out.println("Choose a character by entering the corresponding number: ");
+			for (int i = 0; i < loggedInAccount.getCharacters().size(); i++) {
+				Character character = loggedInAccount.getCharacters().get(i);
+				System.out.println((i + 1) + ". " + character.getName() + " - " + character.getProfession());
+			}
+			if (scanner.hasNextInt()) {
+				choice = scanner.nextInt();
+				if (choice < 1 || choice > loggedInAccount.getCharacters().size()) {
+					System.out.println("Invalid choice. Please try again.");
+				}
+			} else {
+				System.out.println("Invalid input. Please enter a number.");
+				scanner.next(); // Clear invalid input
+			}
+		}
+		Character chosenCharacter = loggedInAccount.getCharacters().get(choice - 1);
+		System.out.println("You have chosen: " +
+				chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
+
+		createCharacter(chosenCharacter.getProfession());
+		Game.currentCharacter.setCurrentHealth(1);
+		game.run();
+	}
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		Game newGame = new Game();
+		Game.game = newGame;
 		Game.onSanctuary = false;
 		ArrayList<Account> accounts = createAccounts();
 		int index = logIn(accounts);
+		Account loggedInAccount;
 		if (index != -1) {
-			Account loggedInAccount = accounts.get(index);
+			loggedInAccount = accounts.get(index);
 			List<Character> characters = loggedInAccount.getCharacters();
+			Game.loggedInAccount = loggedInAccount;
 			System.out.println("Professions of characters in the logged-in account:");
-			for (int i = 0; i < characters.size(); i++) {
-				Character character = characters.get(i);
-				System.out.println((i + 1) + ". " + character.getName() + " - " + character.getProfession());
-			}
-			int choice = -1;
-			while (choice < 1 || choice > characters.size()) {
-				System.out.print("Choose a character by entering the corresponding number: ");
-				if (scanner.hasNextInt()) {
-					choice = scanner.nextInt();
-					if (choice < 1 || choice > characters.size()) {
-						System.out.println("Invalid choice. Please try again.");
-					}
-				} else {
-					System.out.println("Invalid input. Please enter a number.");
-					scanner.next(); // Clear invalid input
-				}
-			}
-			Character chosenCharacter = characters.get(choice - 1);
-			System.out.println("You have chosen: " +
-					chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
-
-			createCharacter(chosenCharacter.getProfession());
-
-			newGame.run();
+			Game.chooseCharacter(newGame, loggedInAccount);
 		}
+		scanner.close();
 	}
 }

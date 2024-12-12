@@ -164,6 +164,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			System.out.println("You have been defeated!");
+			Game.chooseCharacter(Game.game, Game.loggedInAccount);
 		}
 	}
 
