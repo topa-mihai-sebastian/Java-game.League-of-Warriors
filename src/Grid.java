@@ -156,7 +156,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (enemy.getCurrentHealth() <= 0) {
 			System.out.println("Enemy defeated!");
 			Game.currentCharacter.setCurrentHealth(Game.currentCharacter.getCurrentHealth() * 2);
-			if(Game.currentCharacter.getCurrentHealth() > 100) {
+			if (Game.currentCharacter.getCurrentHealth() > 100) {
 				Game.currentCharacter.setCurrentHealth(100);
 			}
 			Game.currentCharacter.setCurrentMana(1000);
@@ -180,7 +180,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		System.out.println("Apasa enter pentru a genera noua harta: ");
 		scanner.nextLine();
 		// aici fa niste upgrade-uri la caracter
-		
+
 		Random rd = new Random();
 
 		int width = rd.nextInt(7) + 4;
@@ -226,7 +226,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentCharacter.manaRegen(bonus);
 		}
 
-		if(aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL) {
 			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -263,7 +263,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if(aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL) {
 			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -300,7 +300,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if(aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL) {
 			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -337,7 +337,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if(aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL) {
 			usePortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;

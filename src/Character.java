@@ -13,8 +13,8 @@ public class Character extends Entity {
 	public ArrayList<Spell> spells;
 
 	public boolean fireImmunity;
-    public boolean iceImmunity;
-    public boolean earthImmunity;
+	public boolean iceImmunity;
+	public boolean earthImmunity;
 
 	public Character() {
 		this.name = "noName";
@@ -48,10 +48,11 @@ public class Character extends Entity {
 		this.Charisma = Charisma;
 		this.Dexterity = Dexterity;
 	}
+
 	public ArrayList<Spell> getSpells() {
 		return spells;
 	}
-	
+
 	public boolean getEarthImmunity() {
 		return earthImmunity;
 	}

@@ -2,34 +2,34 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Enemy extends Entity {
-    private int Strength;
-    private int Charisma;
-    private int Dexterity;
+	private int Strength;
+	private int Charisma;
+	private int Dexterity;
 
-    private boolean fireImmunity;
-    private boolean iceImmunity;
-    private boolean earthImmunity;
+	private boolean fireImmunity;
+	private boolean iceImmunity;
+	private boolean earthImmunity;
 	private int currentMana;
-    private ArrayList<Spell> spells;
+	private ArrayList<Spell> spells;
 
-    // Constructor pentru inițializarea câmpurilor
-    public Enemy() {
-        Random rd = new Random();
+	// Constructor pentru inițializarea câmpurilor
+	public Enemy() {
+		Random rd = new Random();
 
-        // Setează viața și mana cu valori aleatoare
-        setCurrentHealth(rd.nextInt(51) + 50); // Interval: 50 - 100
+		// Setează viața și mana cu valori aleatoare
+		setCurrentHealth(rd.nextInt(51) + 50); // Interval: 50 - 100
 
-        // Setează damage-ul de bază cu o valoare aleatoare
-        this.Strength = rd.nextInt(21) + 10; // Interval: 10 - 30
+		// Setează damage-ul de bază cu o valoare aleatoare
+		this.Strength = rd.nextInt(21) + 10; // Interval: 10 - 30
 		this.Dexterity = rd.nextInt(21) + 10; // Interval: 10 - 30
 		this.Charisma = rd.nextInt(21) + 10; // Interval: 10 - 30
 
-        // Setează imunitățile cu valori aleatoare
+		// Setează imunitățile cu valori aleatoare
 		int immunity = rd.nextInt(3) + 1;
 
-        this.fireImmunity = false;
-        this.iceImmunity = false;
-        this.earthImmunity = false;
+		this.fireImmunity = false;
+		this.iceImmunity = false;
+		this.earthImmunity = false;
 		switch (immunity) {
 			case 1:
 				this.fireImmunity = true;
@@ -43,72 +43,74 @@ public class Enemy extends Entity {
 			default:
 				break;
 		}
-		this.currentMana = 100 + rd.nextInt(100);
-        // Instantiază abilitățile aleator
-		this.spells= Game.generateRandomSpells();
-    }
-	
+		this.currentMana = 250 + rd.nextInt(100);
+		// Instantiază abilitățile aleator
+		this.spells = Game.generateRandomSpells();
+	}
+
 	public int getCurrentMana() {
 		return currentMana;
 	}
+
 	public void defaultAttack(Character target) {
 		int defaultDamage = getDamage();
 		target.receiveDamage(defaultDamage);
-		System.out.println(Game.currentCharacter.profession + " attacks " + "enemy" + " for " + defaultDamage + " damage.");
+		System.out.println(
+				Game.currentCharacter.profession + " attacks " + "enemy" + " for " + defaultDamage + " damage.");
 	}
 
-    @Override
-    public void receiveDamage(int damage) {
-        Random rd = new Random();
-        double chance = rd.nextDouble(); // Returnează un număr între 0.0 și 1.0
+	@Override
+	public void receiveDamage(int damage) {
+		Random rd = new Random();
+		double chance = rd.nextDouble(); // Returnează un număr între 0.0 și 1.0
 		boolean avoidDamage = chance < 0.1; // 10% șansă de a evita daunele
-        if (avoidDamage) {
-            System.out.println("Enemy avoided the damage!");
-            return;
-        }
+		if (avoidDamage) {
+			System.out.println("Enemy avoided the damage!");
+			return;
+		}
 
-        setCurrentHealth(getCurrentHealth() - damage);
+		setCurrentHealth(getCurrentHealth() - damage);
 
-        if (getCurrentHealth() < 0) {
-            setCurrentHealth(0); 
-        }
-    }
+		if (getCurrentHealth() < 0) {
+			setCurrentHealth(0);
+		}
+	}
 
 	public ArrayList<Spell> getSpells() {
 		return spells;
 	}
 
-    @Override
-    public int getDamage() {
-        Random rd = new Random();
-        double chance = rd.nextDouble();
-        int baseDamage = this.Strength;
-		boolean doubleDamage = chance < 0.1; //10% sansa
-        if (doubleDamage) {
-            baseDamage *= 2;
-        }
+	@Override
+	public int getDamage() {
+		Random rd = new Random();
+		double chance = rd.nextDouble();
+		int baseDamage = this.Strength;
+		boolean doubleDamage = chance < 0.1; // 10% sansa
+		if (doubleDamage) {
+			baseDamage *= 2;
+		}
 
-        return baseDamage;
-    }
+		return baseDamage;
+	}
 
-    @Override
-    public void useAbility(CellEntityType abilityType, Character enemy) {
-        // Implementarea specifică pentru Enemy
-        // Exemplu: reduce health-ul inamicului cu un anumit damage
-        int abilityDamage = 20; // Exemplu de damage adăugat de abilitate
-        enemy.receiveDamage(abilityDamage);
-    }
+	@Override
+	public void useAbility(CellEntityType abilityType, Character enemy) {
+		// Implementarea specifică pentru Enemy
+		// Exemplu: reduce health-ul inamicului cu un anumit damage
+		int abilityDamage = 20; // Exemplu de damage adăugat de abilitate
+		enemy.receiveDamage(abilityDamage);
+	}
 
-    // Getteri pentru imunități și abilități (opțional)
-    public boolean getFireImmunity() {
-        return fireImmunity;
-    }
+	// Getteri pentru imunități și abilități (opțional)
+	public boolean getFireImmunity() {
+		return fireImmunity;
+	}
 
-    public boolean getIceImmunity() {
-        return iceImmunity;
-    }
+	public boolean getIceImmunity() {
+		return iceImmunity;
+	}
 
-    public boolean getEarthImmunity() {
-        return earthImmunity;
-    }
+	public boolean getEarthImmunity() {
+		return earthImmunity;
+	}
 }
