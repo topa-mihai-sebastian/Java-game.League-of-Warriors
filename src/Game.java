@@ -402,7 +402,7 @@ public class Game {
 		Account loggedInAccount;
 		if (index != -1) {
 			loggedInAccount = accounts.get(index);
-			List<Character> characters = loggedInAccount.getCharacters();
+			//List<Character> characters = loggedInAccount.getCharacters();
 			Game.loggedInAccount = loggedInAccount;
 			System.out.println("Professions of characters in the logged-in account:");
 			Game.chooseCharacter(newGame, loggedInAccount);
