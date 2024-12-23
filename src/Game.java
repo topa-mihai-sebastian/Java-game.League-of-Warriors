@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Game {
 	public static Warrior myWarrior;
 	public static Mage myMage;
@@ -15,6 +20,9 @@ public class Game {
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
 	public static Game game;
+
+	public static JFrame loginFrame;
+	public static JFrame gameFrame;
 
 	public Game() {
 		Random rd = new Random();
@@ -392,20 +400,131 @@ public class Game {
 		game.run();
 	}
 
+	public static void createCharacterSelectionGUI() {
+        loginFrame = new JFrame("League of Warriors - Select Character");
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(400, 300);
+        loginFrame.setLayout(new GridLayout(4, 1));
+
+        JLabel selectLabel = new JLabel("Select your character:");
+        loginFrame.add(selectLabel);
+
+        ButtonGroup group = new ButtonGroup();
+        for (Character character : loggedInAccount.getCharacters()) {
+            JRadioButton radioButton = new JRadioButton(character.getName() + " - " + character.getProfession());
+            radioButton.setActionCommand(character.getProfession());
+            group.add(radioButton);
+            loginFrame.add(radioButton);
+        }
+
+        JButton selectButton = new JButton("Select");
+        loginFrame.add(selectButton);
+
+        selectButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedProfession = group.getSelection().getActionCommand();
+                createCharacter(selectedProfession);
+                loginFrame.dispose();
+                createGameGUI();
+            }
+        });
+
+        loginFrame.setVisible(true);
+    }
+
+	public static void createLoginGUI(ArrayList<Account> accounts) {
+		loginFrame = new JFrame("League of Warriors - Login");
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loginFrame.setSize(400, 300);
+        loginFrame.setLayout(new GridLayout(4, 2));
+
+		JLabel emailLabel = new JLabel("Email:");
+        JTextField emailField = new JTextField();
+        JLabel passwordLabel = new JLabel("Password:");
+        JPasswordField passwordField = new JPasswordField();
+        JButton loginButton = new JButton("Login");
+
+        loginFrame.add(emailLabel);
+        loginFrame.add(emailField);
+        loginFrame.add(passwordLabel);
+        loginFrame.add(passwordField);
+        loginFrame.add(new JLabel()); // Placeholder
+        loginFrame.add(loginButton);
+
+		loginButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				String email = emailField.getText();
+				String password = new String(passwordField.getPassword());
+				boolean loginSuccess = false;
+
+				for (Account account : accounts) {
+					if (email.equals(account.getInformation().getCredentials().getEmail()) &&
+					password.equals(account.getInformation().getCredentials().getPassword())) {
+					loginSuccess = true;
+					Game.loggedInAccount = account;
+					JOptionPane.showMessageDialog(loginFrame, "Login successful!");
+					loginFrame.dispose();
+					createCharacterSelectionGUI();
+					break;
+				}
+				}
+				if(!loginSuccess) {
+					JOptionPane.showMessageDialog(loginFrame, "Invalid email or password");
+				}
+			}
+		});
+
+		loginFrame.setVisible(true);
+	}
+
+	public static void createGameGUI() {
+        gameFrame = new JFrame("League of Warriors - Game");
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame.setSize(1500, 1500);
+        gameFrame.setLayout(new BorderLayout());
+
+        JLabel gameLabel = new JLabel("Welcome to League of Warriors", SwingConstants.CENTER);
+        gameFrame.add(gameLabel, BorderLayout.CENTER);
+
+        JButton startButton = new JButton("Start Game");
+        gameFrame.add(startButton, BorderLayout.SOUTH);
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Logica pentru a începe jocul
+                JOptionPane.showMessageDialog(gameFrame, "Game Started!");
+                // Poți adăuga aici logica pentru a deschide fereastra principală a jocului
+            }
+        });
+
+        gameFrame.setVisible(true);
+    }
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 		Game newGame = new Game();
 		Game.game = newGame;
 		Game.onSanctuary = false;
 		ArrayList<Account> accounts = createAccounts();
-		int index = logIn(accounts);
-		Account loggedInAccount;
-		if (index != -1) {
-			loggedInAccount = accounts.get(index);
-			//List<Character> characters = loggedInAccount.getCharacters();
-			Game.loggedInAccount = loggedInAccount;
-			System.out.println("Professions of characters in the logged-in account:");
-			Game.chooseCharacter(newGame, loggedInAccount);
+		System.out.println("1. CLI");
+		System.out.println("2. GUI");
+		int GUI = scanner.nextInt();
+		if (GUI == 1) {
+			int index = logIn(accounts);
+			Account loggedInAccount;
+			if (index != -1) {
+				loggedInAccount = accounts.get(index);
+				// List<Character> characters = loggedInAccount.getCharacters();
+				Game.loggedInAccount = loggedInAccount;
+				System.out.println("Professions of characters in the logged-in account:");
+				Game.chooseCharacter(newGame, loggedInAccount);
+			}
+		} else {
+			// intefata total separata de cea pentru gameplay
+			createLoginGUI(accounts);
 		}
 		scanner.close();
 	}
