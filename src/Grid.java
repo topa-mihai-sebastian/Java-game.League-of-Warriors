@@ -20,7 +20,13 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			this.add(row);
 		}
 	}
-
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	
 	public static Grid createTheGrid(int width, int height, Character character) {
 		if (width > 10 || height > 10) {
 			throw new IllegalArgumentException("Maximum dimension is 10x10!");
