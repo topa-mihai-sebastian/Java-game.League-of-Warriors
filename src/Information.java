@@ -7,52 +7,68 @@ public class Information {
 	private List<String> favoriteGames;
 	private int mapsCompleted;
 
-	public Information(Credentials credentials, String name, String country, List<String> favoriteGames,
-			int mapsCompleted) {
-		this.credentials = credentials;
-		this.name = name;
-		this.country = country;
-		this.favoriteGames = favoriteGames;
-		this.mapsCompleted = mapsCompleted;
+	private Information(Builder builder) {
+		this.credentials = builder.credentials;
+		this.name = builder.name;
+		this.country = builder.country;
+		this.favoriteGames = builder.favoriteGames;
+		this.mapsCompleted = builder.mapsCompleted;
 	}
 
 	public Credentials getCredentials() {
 		return credentials;
 	}
 
-	public void setCredentials(Credentials credentials) {
-		this.credentials = credentials;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public List<String> getFavoriteGames() {
 		return favoriteGames;
-	}
-
-	public void setFavoriteGames(List<String> favoriteGames) {
-		this.favoriteGames = favoriteGames;
 	}
 
 	public int getMapsCompleted() {
 		return mapsCompleted;
 	}
 
-	public void setMapsCompleted(int mapsCompleted) {
-		this.mapsCompleted = mapsCompleted;
+	public static class Builder {
+		private Credentials credentials;
+		private String name;
+		private String country;
+		private List<String> favoriteGames;
+		private int mapsCompleted;
+
+		public Builder setCredentials(Credentials credentials) {
+			this.credentials = credentials;
+			return this;
+		}
+
+		public Builder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder setCountry(String country) {
+			this.country = country;
+			return this;
+		}
+
+		public Builder setFavoriteGames(List<String> favoriteGames) {
+			this.favoriteGames = favoriteGames;
+			return this;
+		}
+
+		public Builder setMapsCompleted(int mapsCompleted) {
+			this.mapsCompleted = mapsCompleted;
+			return this;
+		}
+
+		public Information build() {
+			return new Information(this);
+		}
 	}
 }
