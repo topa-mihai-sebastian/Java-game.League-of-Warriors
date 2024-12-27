@@ -7,7 +7,7 @@ public class Test {
 
 	public Test() {
 		Scanner scanner = new Scanner(System.in);
-		testGame = new Game();
+		testGame = Game.getInstance();
 		Game.gameGrid = Grid.createTheGrid(5, 5, Game.currentCharacter);
 		Game.onSanctuary = false;
 		ArrayList<Account> accounts = Game.createAccounts();

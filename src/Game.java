@@ -19,12 +19,12 @@ public class Game {
 	public static Character currentCharacter;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
-	public static Game game;
+	private static Game game;
 
 	public static JFrame loginFrame;
 	public static JFrame gameFrame;
 
-	public Game() {
+	private Game() {
 		Random rd = new Random();
 		int randomWidth = rd.nextInt(7) + 4;
 		int randomHeight = rd.nextInt(7) + 4;
@@ -38,6 +38,13 @@ public class Game {
 		Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
 		// Game.currentCharacter = new Character();
 		Game.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
+	}
+
+	public static Game getInstance() {
+		if (game == null) {
+			game = new Game();
+		}
+		return game;
 	}
 
 	public static ArrayList<Account> createAccounts() {
@@ -440,7 +447,7 @@ public class Game {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		Game.game = new Game();
+		game = Game.getInstance();
 		Game.onSanctuary = false;
 		ArrayList<Account> accounts = createAccounts();
 		System.out.println("1. CLI");
