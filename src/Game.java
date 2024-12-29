@@ -5,9 +5,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Game {
 	public static Warrior myWarrior;
@@ -28,15 +25,11 @@ public class Game {
 		Random rd = new Random();
 		int randomWidth = rd.nextInt(7) + 4;
 		int randomHeight = rd.nextInt(7) + 4;
-		Game.myWarrior = new Warrior("Hero", 50, 3, 20, 45, 35);
-		Game.myWarrior.setCurrentHealth(myWarrior.maxHealth);
 
-		Game.myMage = new Mage("Hero", 50, 3, 20, 45, 35);
-		Game.myMage.setCurrentHealth(myWarrior.maxHealth);
+		Game.myWarrior = (Warrior) CharacterFactory.createCharacter("Warrior", "-", 1, 1);
+		Game.myMage = (Mage) CharacterFactory.createCharacter("Mage", "-", 1, 1);
+		Game.myRogue = (Rogue) CharacterFactory.createCharacter("Rogue", "-", 1, 1);
 
-		Game.myRogue = new Rogue("Hero", 50, 3, 20, 45, 35);
-		Game.myRogue.setCurrentHealth(myWarrior.maxHealth);
-		// Game.currentCharacter = new Character();
 		Game.gameGrid = Grid.createTheGrid(randomWidth, randomHeight, myWarrior);
 	}
 
@@ -274,31 +267,10 @@ public class Game {
 	}
 
 	public static void createCharacter(String type) {
-		switch (type) {
-			case "Warrior":
-				System.out.println("You have chosen the warrior");
-				Game.currentCharacter = new Warrior("Hero", 50, 3, 20, 45, 35);
-				Game.currentCharacter.setCurrentHealth(myWarrior.maxHealth);
-				Game.currentCharacter.setCurrentMana(1000);
-				Game.currentCharacter.spells = generateRandomSpells();
-				break;
-			case "Mage":
-				System.out.println("You have chosen the mage");
-				Game.currentCharacter = new Mage("Hero", 50, 3, 20, 45, 35);
-				Game.currentCharacter.setCurrentHealth(myWarrior.maxHealth);
-				Game.currentCharacter.setCurrentMana(1000);
-				Game.currentCharacter.spells = generateRandomSpells();
-				break;
-			case "Rogue":
-				System.out.println("You have chosen the rogue");
-				Game.currentCharacter = new Rogue("Hero", 50, 3, 20, 45, 35);
-				Game.currentCharacter.setCurrentHealth(myWarrior.maxHealth);
-				Game.currentCharacter.setCurrentMana(1000);
-				Game.currentCharacter.spells = generateRandomSpells();
-				break;
-			default:
-				break;
-		}
+		Game.currentCharacter = CharacterFactory.createCharacter(type, "Hero", 50, 3);
+		Game.currentCharacter.setCurrentHealth(100);
+		Game.currentCharacter.setCurrentMana(1000);
+		Game.currentCharacter.spells = generateRandomSpells();
 	}
 
 	public static void useSpell(Character currentCharacter, Enemy currentEnemy) {
@@ -440,7 +412,8 @@ public class Game {
 		System.out.println("You have chosen: " +
 				chosenCharacter.getName() + " - " + chosenCharacter.getProfession());
 
-		createCharacter(chosenCharacter.getProfession());
+		//createCharacter(chosenCharacter.getProfession());
+		Game.currentCharacter = CharacterFactory.createCharacter(chosenCharacter.getProfession(), chosenCharacter.getName(), chosenCharacter.getLevel(), chosenCharacter.getXP());
 
 		game.run();
 	}
