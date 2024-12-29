@@ -275,9 +275,9 @@ public class Game {
 
 	public static void useSpell(Character currentCharacter, Enemy currentEnemy) {
 		Scanner scanner = new Scanner(System.in);
-
+	
 		ArrayList<Spell> spells = currentCharacter.getSpells();
-
+	
 		if (spells.isEmpty()) {
 			System.out.println("No spells available. Using default attack.");
 			currentCharacter.defaultAttack(currentEnemy);
@@ -300,58 +300,34 @@ public class Game {
 				scanner.next(); // Clear invalid input
 			}
 		}
-
+	
 		Spell chosenSpell = spells.get(choice - 1);
 		if (currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if (chosenSpell.name.equals("Earth") && currentEnemy.getEarthImmunity() == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			if (chosenSpell.name.equals("Fire") && currentEnemy.getFireImmunity() == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			if (chosenSpell.name.equals("Ice") && currentEnemy.getIceImmunity() == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			chosenSpell.cast(currentCharacter, currentEnemy);
+			chosenSpell.visit(currentEnemy); // Visitor Pattern
 			spells.remove(chosenSpell); // Remove the spell after casting
 		} else {
 			System.out.println("Not enough mana to cast " + chosenSpell + ". Using default attack.");
 			currentCharacter.defaultAttack(currentEnemy);
 		}
 	}
-
+	
 	// functia asta este apelata cand inamicul face un atac
 	public static void useSpell(Enemy currentEnemy, Character currentCharacter) {
 		Random rd = new Random();
 		List<Spell> spells = currentEnemy.getSpells();
-
+	
 		if (spells.isEmpty()) {
 			System.out.println("No spells available. Using default attack.");
 			currentEnemy.defaultAttack(currentCharacter);
 			return;
 		}
-
+	
 		// Inamicul alege o abilitate aleatorie
 		int choice = rd.nextInt(spells.size());
 		Spell chosenSpell = spells.get(choice);
-
+	
 		if (currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
-			if (chosenSpell.name.equals("Earth") && currentCharacter.earthImmunity == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			if (chosenSpell.name.equals("Fire") && currentCharacter.fireImmunity == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			if (chosenSpell.name.equals("Ice") && currentCharacter.iceImmunity == true) {
-				System.out.println("IMMUNITY!");
-				chosenSpell.damage = 0;
-			}
-			chosenSpell.cast(currentEnemy, currentCharacter);
+			chosenSpell.visit(currentCharacter); // Visitor Pattern
 			spells.remove(chosenSpell); // Remove the spell after casting
 		} else {
 			System.out.println("Not enough mana to cast " + chosenSpell + ". Using default attack.");

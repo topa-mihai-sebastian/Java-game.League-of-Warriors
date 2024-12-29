@@ -200,4 +200,11 @@ public class Character extends Entity {
 	public void useAbility(CellEntityType abilityType, Character enemy) {
 
 	}
+	@Override
+    public void takeDamage(int damage) {
+        setCurrentHealth(getCurrentHealth() - damage);
+        if (getCurrentHealth() < 0) {
+            setCurrentHealth(0);
+        }
+    }
 }

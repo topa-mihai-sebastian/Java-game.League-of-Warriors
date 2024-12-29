@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public abstract class Entity {
+public abstract class Entity implements Element<Entity>{
 	private int currentMana;
 	final int maxMana = 1000;
 	private int currentHealth;
@@ -12,6 +12,11 @@ public abstract class Entity {
 		ENEMY,
 		SANCTUARY,
 		PORTAL
+	}
+
+	@Override
+	public void accept(Visitor<Entity> visitor){
+		visitor.visit(this);
 	}
 
 	public void setCurrentHealth(int health) {
@@ -71,4 +76,8 @@ public abstract class Entity {
 	public abstract int getDamage();
 
 	public abstract void useAbility(CellEntityType abilityType, Character enemy);
+	public abstract boolean getEarthImmunity();
+    public abstract boolean getFireImmunity();
+    public abstract boolean getIceImmunity();
+    public abstract void takeDamage(int damage);
 }

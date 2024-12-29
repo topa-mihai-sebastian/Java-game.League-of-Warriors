@@ -48,6 +48,14 @@ public class Enemy extends Entity {
 		this.spells = Game.generateRandomSpells();
 	}
 
+	@Override
+    public void takeDamage(int damage) {
+        setCurrentHealth(getCurrentHealth() - damage);
+        if (getCurrentHealth() < 0) {
+            setCurrentHealth(0);
+        }
+    }
+
 	public int getCurrentMana() {
 		return currentMana;
 	}
