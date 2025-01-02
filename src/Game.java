@@ -25,7 +25,7 @@ public class Game {
 		Random rd = new Random();
 		int randomWidth = rd.nextInt(7) + 4;
 		int randomHeight = rd.nextInt(7) + 4;
-
+		
 		Game.myWarrior = (Warrior) CharacterFactory.createCharacter("Warrior", "-", 1, 1);
 		Game.myMage = (Mage) CharacterFactory.createCharacter("Mage", "-", 1, 1);
 		Game.myRogue = (Rogue) CharacterFactory.createCharacter("Rogue", "-", 1, 1);

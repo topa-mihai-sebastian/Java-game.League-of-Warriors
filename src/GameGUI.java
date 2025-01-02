@@ -98,23 +98,23 @@ public class GameGUI {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(800, 600);
 		gameFrame.setLayout(new BorderLayout());
-
+	
 		// Panel pentru grid
 		gridPanel = new JPanel();
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
-
+	
 		// Panel pentru butoanele de mișcare
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(2, 2));
-
+	
 		JButton northButton = new JButton("Go North");
 		northButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (Game.gameGrid.goNorth()) {
-						Game.gameGrid.battle(Game.currentEnemy, Game.currentCharacter);
+						createBattleGUI();
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -123,14 +123,14 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(northButton);
-
+	
 		JButton southButton = new JButton("Go South");
 		southButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (Game.gameGrid.goSouth()) {
-						Game.gameGrid.battle(Game.currentEnemy, Game.currentCharacter);
+						createBattleGUI();
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -139,14 +139,14 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(southButton);
-
+	
 		JButton eastButton = new JButton("Go East");
 		eastButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (Game.gameGrid.goEast()) {
-						Game.gameGrid.battle(Game.currentEnemy, Game.currentCharacter);
+						createBattleGUI();
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -155,14 +155,14 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(eastButton);
-
+	
 		JButton westButton = new JButton("Go West");
 		westButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (Game.gameGrid.goWest()) {
-						Game.gameGrid.battle(Game.currentEnemy, Game.currentCharacter);
+						createBattleGUI();
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -171,12 +171,58 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(westButton);
-
+	
 		gameFrame.add(controlPanel, BorderLayout.SOUTH);
-
+	
 		updateGrid(); // Inițializează grid-ul la început
-
+	
 		gameFrame.setVisible(true);
+	}
+
+	public static void useSpellGUI(Character currentCharacter, Enemy currentEnemy, JFrame gameFrame) {
+		ArrayList<Spell> spells = currentCharacter.getSpells();
+	
+		if (spells.isEmpty()) {
+			JOptionPane.showMessageDialog(gameFrame, "No spells available. Using default attack.");
+			currentCharacter.defaultAttack(currentEnemy);
+			return;
+		}
+	
+		String[] spellOptions = new String[spells.size()];
+		for (int i = 0; i < spells.size(); i++) {
+			spellOptions[i] = spells.get(i).toString();
+		}
+	
+		String chosenSpellName = (String) JOptionPane.showInputDialog(
+				gameFrame,
+				"Choose a spell to cast:",
+				"Spell Selection",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				spellOptions,
+				spellOptions[0]);
+	
+		if (chosenSpellName == null) {
+			JOptionPane.showMessageDialog(gameFrame, "No spell selected. Using default attack.");
+			currentCharacter.defaultAttack(currentEnemy);
+			return;
+		}
+	
+		Spell chosenSpell = null;
+		for (Spell spell : spells) {
+			if (spell.toString().equals(chosenSpellName)) {
+				chosenSpell = spell;
+				break;
+			}
+		}
+	
+		if (chosenSpell != null && currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
+			chosenSpell.visit(currentEnemy); // Visitor Pattern
+			spells.remove(chosenSpell); // Remove the spell after casting
+		} else if (chosenSpell != null) {
+			JOptionPane.showMessageDialog(gameFrame, "Not enough mana to cast " + chosenSpell + ". Using default attack.");
+			currentCharacter.defaultAttack(currentEnemy);
+		}
 	}
 
 	public void createBattleGUI() {
@@ -200,7 +246,7 @@ public class GameGUI {
 
 		battleFrame.add(infoPanel, BorderLayout.NORTH);
 
-		// Panel pentru butoanele de atac și vrăji
+		// panel pentru butoanele de atac si vraji
 		JPanel actionPanel = new JPanel();
 		actionPanel.setLayout(new GridLayout(1, 2));
 
@@ -219,7 +265,7 @@ public class GameGUI {
 		spellButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game.useSpell(Game.currentCharacter, Game.currentEnemy);
+				useSpellGUI(Game.currentCharacter, Game.currentEnemy, battleFrame);
 				updateBattleInfo(characterInfo, enemyInfo);
 				checkBattleOutcome(battleFrame);
 			}
@@ -241,6 +287,7 @@ public class GameGUI {
 		if (Game.currentEnemy.getCurrentHealth() <= 0) {
 			JOptionPane.showMessageDialog(battleFrame, "Enemy defeated!");
 			battleFrame.dispose();
+			Game.currentCharacter.spells = Game.generateRandomSpells();
 		} else if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			JOptionPane.showMessageDialog(battleFrame, "You have been defeated!");
 			battleFrame.dispose();
