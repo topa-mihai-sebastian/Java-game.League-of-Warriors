@@ -94,6 +94,11 @@ public class GameGUI {
 		loginFrame.setVisible(true);
 	}
 
+	private void updatePlayerInfo(JLabel healthLabel, JLabel manaLabel) {
+		healthLabel.setText("Health: " + Game.currentCharacter.getCurrentHealth());
+		manaLabel.setText("Mana: " + Game.currentCharacter.getCurrentMana());
+	}
+
 	public void createGameGUI() {
 		gameFrame = new JFrame("League of Warriors - Game");
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -132,6 +137,7 @@ public class GameGUI {
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
+				updatePlayerInfo(healthLabel, manaLabel);
 			}
 		});
 		controlPanel.add(northButton);
@@ -148,6 +154,7 @@ public class GameGUI {
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
+				updatePlayerInfo(healthLabel, manaLabel);
 			}
 		});
 		controlPanel.add(southButton);
@@ -164,6 +171,7 @@ public class GameGUI {
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
+				updatePlayerInfo(healthLabel, manaLabel);
 			}
 		});
 		controlPanel.add(eastButton);
@@ -180,6 +188,7 @@ public class GameGUI {
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
+				updatePlayerInfo(healthLabel, manaLabel);
 			}
 		});
 		controlPanel.add(westButton);
