@@ -228,7 +228,6 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			int bonus = rd.nextInt(35) + 35;
 			Game.currentCharacter.lifeRegen(bonus);
 			bonus = rd.nextInt(35) + 300;
-			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
 

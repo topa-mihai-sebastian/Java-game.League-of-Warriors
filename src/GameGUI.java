@@ -99,16 +99,27 @@ public class GameGUI {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(800, 600);
 		gameFrame.setLayout(new BorderLayout());
-	
+
 		// Panel pentru grid
 		gridPanel = new JPanel();
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
-	
+
+		//detalii despre jucator
+		JPanel playerInfoPanel = new JPanel();
+    	playerInfoPanel.setLayout(new GridLayout(2, 1));
+		JLabel characterName = new JLabel("Profession: " + Game.currentCharacter.getProfession());
+    	JLabel healthLabel = new JLabel("Health: " + Game.currentCharacter.getCurrentHealth());
+    	JLabel manaLabel = new JLabel("Mana: " + Game.currentCharacter.getCurrentMana());
+    	playerInfoPanel.add(characterName);
+		playerInfoPanel.add(healthLabel);
+    	playerInfoPanel.add(manaLabel);
+    	gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
+
 		// Panel pentru butoanele de mișcare
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(2, 2));
-	
+
 		JButton northButton = new JButton("Go North");
 		northButton.addActionListener(new ActionListener() {
 			@Override
@@ -124,7 +135,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(northButton);
-	
+
 		JButton southButton = new JButton("Go South");
 		southButton.addActionListener(new ActionListener() {
 			@Override
@@ -140,7 +151,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(southButton);
-	
+
 		JButton eastButton = new JButton("Go East");
 		eastButton.addActionListener(new ActionListener() {
 			@Override
@@ -156,7 +167,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(eastButton);
-	
+
 		JButton westButton = new JButton("Go West");
 		westButton.addActionListener(new ActionListener() {
 			@Override
@@ -172,28 +183,28 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(westButton);
-	
+
 		gameFrame.add(controlPanel, BorderLayout.SOUTH);
-	
+
 		updateGrid(); // Inițializează grid-ul la început
-	
+
 		gameFrame.setVisible(true);
 	}
 
 	public static void useSpellGUI(Character currentCharacter, Enemy currentEnemy, JFrame gameFrame) {
 		ArrayList<Spell> spells = currentCharacter.getSpells();
-	
+
 		if (spells.isEmpty()) {
 			JOptionPane.showMessageDialog(gameFrame, "No spells available. Using default attack.");
 			currentCharacter.defaultAttack(currentEnemy);
 			return;
 		}
-	
+
 		String[] spellOptions = new String[spells.size()];
 		for (int i = 0; i < spells.size(); i++) {
 			spellOptions[i] = spells.get(i).toString();
 		}
-	
+
 		String chosenSpellName = (String) JOptionPane.showInputDialog(
 				gameFrame,
 				"Choose a spell to cast:",
@@ -202,13 +213,13 @@ public class GameGUI {
 				null,
 				spellOptions,
 				spellOptions[0]);
-	
+
 		if (chosenSpellName == null) {
 			JOptionPane.showMessageDialog(gameFrame, "No spell selected. Using default attack.");
 			currentCharacter.defaultAttack(currentEnemy);
 			return;
 		}
-	
+
 		Spell chosenSpell = null;
 		for (Spell spell : spells) {
 			if (spell.toString().equals(chosenSpellName)) {
@@ -216,12 +227,13 @@ public class GameGUI {
 				break;
 			}
 		}
-	
+
 		if (chosenSpell != null && currentCharacter.getCurrentMana() >= chosenSpell.getManaCost()) {
 			chosenSpell.visit(currentEnemy); // Visitor Pattern
 			spells.remove(chosenSpell); // Remove the spell after casting
 		} else if (chosenSpell != null) {
-			JOptionPane.showMessageDialog(gameFrame, "Not enough mana to cast " + chosenSpell + ". Using default attack.");
+			JOptionPane.showMessageDialog(gameFrame,
+					"Not enough mana to cast " + chosenSpell + ". Using default attack.");
 			currentCharacter.defaultAttack(currentEnemy);
 		}
 	}
@@ -252,40 +264,40 @@ public class GameGUI {
 		actionPanel.setLayout(new GridLayout(1, 2));
 
 		JButton attackButton = new JButton("Attack");
-attackButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Game.currentCharacter.defaultAttack(Game.currentEnemy);
-        updateBattleInfo(characterInfo, enemyInfo);
-        checkBattleOutcome(battleFrame);
+		attackButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Game.currentCharacter.defaultAttack(Game.currentEnemy);
+				updateBattleInfo(characterInfo, enemyInfo);
+				checkBattleOutcome(battleFrame);
 
-        // Enemy attacks after player attack
-        if (Game.currentEnemy.getCurrentHealth() > 0) {
-            enemyAttack();
-            updateBattleInfo(characterInfo, enemyInfo);
-            checkBattleOutcome(battleFrame);
-        }
-    }
-});
-actionPanel.add(attackButton);
+				// Enemy attacks after player attack
+				if (Game.currentEnemy.getCurrentHealth() > 0) {
+					enemyAttack();
+					updateBattleInfo(characterInfo, enemyInfo);
+					checkBattleOutcome(battleFrame);
+				}
+			}
+		});
+		actionPanel.add(attackButton);
 
-JButton spellButton = new JButton("Use Spell");
-spellButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        useSpellGUI(Game.currentCharacter, Game.currentEnemy, battleFrame);
-        updateBattleInfo(characterInfo, enemyInfo);
-        checkBattleOutcome(battleFrame);
+		JButton spellButton = new JButton("Use Spell");
+		spellButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				useSpellGUI(Game.currentCharacter, Game.currentEnemy, battleFrame);
+				updateBattleInfo(characterInfo, enemyInfo);
+				checkBattleOutcome(battleFrame);
 
-        // Enemy attacks after player uses a spell
-        if (Game.currentEnemy.getCurrentHealth() > 0) {
-            enemyAttack();
-            updateBattleInfo(characterInfo, enemyInfo);
-            checkBattleOutcome(battleFrame);
-        }
-    }
-});
-actionPanel.add(spellButton);
+				// Enemy attacks after player uses a spell
+				if (Game.currentEnemy.getCurrentHealth() > 0) {
+					enemyAttack();
+					updateBattleInfo(characterInfo, enemyInfo);
+					checkBattleOutcome(battleFrame);
+				}
+			}
+		});
+		actionPanel.add(spellButton);
 		actionPanel.add(spellButton);
 
 		battleFrame.add(actionPanel, BorderLayout.SOUTH);
@@ -304,7 +316,7 @@ actionPanel.add(spellButton);
 			JOptionPane.showMessageDialog(battleFrame, "Enemy defeated!");
 			battleFrame.dispose();
 			Game.currentCharacter.spells = Game.generateRandomSpells();
-			Game.currentCharacter.setCurrentHealth(100);
+			// Game.currentCharacter.setCurrentHealth(100);
 		} else if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			JOptionPane.showMessageDialog(battleFrame, "You have been defeated!");
 			battleFrame.dispose();
@@ -312,24 +324,25 @@ actionPanel.add(spellButton);
 	}
 
 	private void enemyAttack() {
-    Random rd = new Random();
-    ArrayList<Spell> spells = Game.currentEnemy.getSpells();
+		Random rd = new Random();
+		ArrayList<Spell> spells = Game.currentEnemy.getSpells();
 
-    if (!spells.isEmpty() && rd.nextBoolean()) {
-        // Enemy uses a spell
-        int choice = rd.nextInt(spells.size());
-        Spell chosenSpell = spells.get(choice);
-        if (Game.currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
-            chosenSpell.visit(Game.currentCharacter); // Visitor Pattern
-            spells.remove(chosenSpell); // Remove the spell after casting
-        } else {
-            Game.currentEnemy.defaultAttack(Game.currentCharacter);
-        }
-    } else {
-        // Enemy uses default attack
-        Game.currentEnemy.defaultAttack(Game.currentCharacter);
-    }
-}
+		if (!spells.isEmpty() && rd.nextBoolean()) {
+			// Enemy uses a spell
+			int choice = rd.nextInt(spells.size());
+			Spell chosenSpell = spells.get(choice);
+			if (Game.currentEnemy.getCurrentMana() >= chosenSpell.getManaCost()) {
+				chosenSpell.visit(Game.currentCharacter); // Visitor Pattern
+				spells.remove(chosenSpell); // Remove the spell after casting
+			} else {
+				Game.currentEnemy.defaultAttack(Game.currentCharacter);
+			}
+		} else {
+			// Enemy uses default attack
+			Game.currentEnemy.defaultAttack(Game.currentCharacter);
+		}
+	}
+
 	public void updateGrid() {
 		gridPanel.removeAll();
 		for (int i = 0; i < Game.gameGrid.getHeight(); i++) {
