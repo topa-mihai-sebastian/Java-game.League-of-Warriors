@@ -286,6 +286,10 @@ public class GameGUI {
 					updateBattleInfo(characterInfo, enemyInfo);
 					checkBattleOutcome(battleFrame);
 				}
+				if(Game.currentCharacter.getCurrentHealth() <= 0) {
+					JOptionPane.showMessageDialog(gameFrame, "You have lost the game. Your character has no health left.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+					gameFrame.dispose(); 
+				}
 			}
 		});
 		actionPanel.add(attackButton);
@@ -303,6 +307,10 @@ public class GameGUI {
 					enemyAttack();
 					updateBattleInfo(characterInfo, enemyInfo);
 					checkBattleOutcome(battleFrame);
+				}
+				if(Game.currentCharacter.getCurrentHealth() <= 0) {
+					JOptionPane.showMessageDialog(gameFrame, "You have lost the game. Your character has no health left.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+					gameFrame.dispose(); 
 				}
 			}
 		});
