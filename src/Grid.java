@@ -1,6 +1,14 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Grid extends ArrayList<ArrayList<Cell>> {
 	public static boolean printable;
@@ -20,13 +28,15 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			this.add(row);
 		}
 	}
+
 	public int getWidth() {
 		return width;
 	}
+
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public static Grid createTheGrid(int width, int height, Character character) {
 		if (width > 10 || height > 10) {
 			throw new IllegalArgumentException("Maximum dimension is 10x10!");
@@ -185,10 +195,9 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Apasa enter pentru a genera noua harta: ");
 		scanner.nextLine();
-	
 
 		Random rd = new Random();
-
+		GameGUI.gameFrame.setLayout(new BorderLayout());
 		int width = rd.nextInt(7) + 4;
 		int height = rd.nextInt(7) + 4;
 		Game.currentCharacter.setCurrentHealth(100);
@@ -203,7 +212,10 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Random rd = new Random();
 		int width = rd.nextInt(7) + 4;
 		int height = rd.nextInt(7) + 4;
-
+		
+		GameGUI.gridPanel = new JPanel();
+		GameGUI.gridPanel.setLayout(new GridLayout(width, height));
+		GameGUI.gameFrame.add(GameGUI.gridPanel, BorderLayout.CENTER);
 		Game.currentCharacter.setCurrentHealth(100);
 		Game.currentCharacter.setCurrentMana(1000);
 		Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.1));
@@ -246,8 +258,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
-		}
-		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
 			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -286,8 +297,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
-		}
-		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
 			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -326,8 +336,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
-		}
-		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
 			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
@@ -366,15 +375,14 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		}
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
-		}
-		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
 			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
 
 	public void clearScreen() {
-		System.out.print("\033[H\033[2J");
+		System.out.print("\033[H\033[2J"); // string gasit pe net
 		System.out.flush();
 	}
 

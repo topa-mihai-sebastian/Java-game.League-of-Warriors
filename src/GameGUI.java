@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameGUI {
-	private JFrame loginFrame;
-	private JFrame gameFrame;
-	private JPanel gridPanel;
+	public static JFrame loginFrame;
+	public static JFrame gameFrame;
+	public static JPanel gridPanel;
 
 	public GameGUI() {
 
@@ -102,23 +102,30 @@ public class GameGUI {
 	public void createGameGUI() {
 		gameFrame = new JFrame("League of Warriors - Game");
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(800, 600);
+		gameFrame.setSize(1200, 1000);
 		gameFrame.setLayout(new BorderLayout());
 
 		// Panel pentru grid
 		gridPanel = new JPanel();
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
-
+		
 		// detalii despre jucator
 		JPanel playerInfoPanel = new JPanel();
-		playerInfoPanel.setLayout(new GridLayout(1, 1));
+		playerInfoPanel.setLayout(new GridLayout(1, 6)); // 6 rânduri pentru informațiile suplimentare
 		JLabel characterName = new JLabel("Profession: " + Game.currentCharacter.getProfession());
 		JLabel healthLabel = new JLabel("Health: " + Game.currentCharacter.getCurrentHealth());
 		JLabel manaLabel = new JLabel("Mana: " + Game.currentCharacter.getCurrentMana());
+		JLabel strengthLabel = new JLabel("Strength: " + Game.currentCharacter.getStrength());
+		JLabel dexterityLabel = new JLabel("Dexterity: " + Game.currentCharacter.getDexterity());
+		JLabel charismaLabel = new JLabel("Charisma: " + Game.currentCharacter.getCharisma());
 		playerInfoPanel.add(characterName);
 		playerInfoPanel.add(healthLabel);
 		playerInfoPanel.add(manaLabel);
+		playerInfoPanel.add(strengthLabel);
+		playerInfoPanel.add(strengthLabel);
+		playerInfoPanel.add(dexterityLabel);
+		playerInfoPanel.add(charismaLabel);
 		gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
 
 		// Panel pentru butoanele de mișcare
@@ -365,6 +372,8 @@ public class GameGUI {
 	}
 
 	public void updateGrid() {
+		System.out.println(Game.gameGrid.getHeight());
+		System.out.println(Game.gameGrid.getWidth());
 		gridPanel.removeAll();
 		for (int i = 0; i < Game.gameGrid.getHeight(); i++) {
 			for (int j = 0; j < Game.gameGrid.getWidth(); j++) {
@@ -390,6 +399,7 @@ public class GameGUI {
 						cellLabel = new JLabel(" ", SwingConstants.CENTER);
 						break;
 				}
+				cellLabel.setPreferredSize(new Dimension(50, 50));
 				cellLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				gridPanel.add(cellLabel);
 			}
