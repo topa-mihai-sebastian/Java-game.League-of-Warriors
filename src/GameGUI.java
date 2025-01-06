@@ -30,7 +30,7 @@ public class GameGUI {
 		loginFrame.add(emailField);
 		loginFrame.add(passwordLabel);
 		loginFrame.add(passwordField);
-		loginFrame.add(new JLabel()); // Placeholder
+		loginFrame.add(new JLabel()); // pt ca butonul de login sa fie fix sub 
 		loginFrame.add(loginButton);
 
 		loginButton.addActionListener(new ActionListener() {
@@ -110,16 +110,16 @@ public class GameGUI {
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
 
-		//detalii despre jucator
+		// detalii despre jucator
 		JPanel playerInfoPanel = new JPanel();
-    	playerInfoPanel.setLayout(new GridLayout(2, 1));
+		playerInfoPanel.setLayout(new GridLayout(1, 1));
 		JLabel characterName = new JLabel("Profession: " + Game.currentCharacter.getProfession());
-    	JLabel healthLabel = new JLabel("Health: " + Game.currentCharacter.getCurrentHealth());
-    	JLabel manaLabel = new JLabel("Mana: " + Game.currentCharacter.getCurrentMana());
-    	playerInfoPanel.add(characterName);
+		JLabel healthLabel = new JLabel("Health: " + Game.currentCharacter.getCurrentHealth());
+		JLabel manaLabel = new JLabel("Mana: " + Game.currentCharacter.getCurrentMana());
+		playerInfoPanel.add(characterName);
 		playerInfoPanel.add(healthLabel);
-    	playerInfoPanel.add(manaLabel);
-    	gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
+		playerInfoPanel.add(manaLabel);
+		gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
 
 		// Panel pentru butoanele de mișcare
 		JPanel controlPanel = new JPanel();
@@ -286,9 +286,11 @@ public class GameGUI {
 					updateBattleInfo(characterInfo, enemyInfo);
 					checkBattleOutcome(battleFrame);
 				}
-				if(Game.currentCharacter.getCurrentHealth() <= 0) {
-					JOptionPane.showMessageDialog(gameFrame, "You have lost the game. Your character has no health left.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-					gameFrame.dispose(); 
+				if (Game.currentCharacter.getCurrentHealth() <= 0) {
+					JOptionPane.showMessageDialog(gameFrame,
+							"You have lost the game. Your character has no health left.", "Game Over",
+							JOptionPane.INFORMATION_MESSAGE);
+					gameFrame.dispose();
 				}
 			}
 		});
@@ -308,9 +310,11 @@ public class GameGUI {
 					updateBattleInfo(characterInfo, enemyInfo);
 					checkBattleOutcome(battleFrame);
 				}
-				if(Game.currentCharacter.getCurrentHealth() <= 0) {
-					JOptionPane.showMessageDialog(gameFrame, "You have lost the game. Your character has no health left.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-					gameFrame.dispose(); 
+				if (Game.currentCharacter.getCurrentHealth() <= 0) {
+					JOptionPane.showMessageDialog(gameFrame,
+							"You have lost the game. Your character has no health left.", "Game Over",
+							JOptionPane.INFORMATION_MESSAGE);
+					gameFrame.dispose();
 				}
 			}
 		});

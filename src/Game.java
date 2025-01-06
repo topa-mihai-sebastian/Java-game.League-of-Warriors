@@ -17,7 +17,7 @@ public class Game {
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
 	private static Game game;
-
+	public static boolean gameType;
 	public static JFrame loginFrame;
 	public static JFrame gameFrame;
 
@@ -403,6 +403,7 @@ public class Game {
 		System.out.println("2. GUI");
 		int GUI = scanner.nextInt();
 		if (GUI == 1) {
+			gameType = true;
 			int index = logIn(accounts);
 			Account loggedInAccount;
 			if (index != -1) {
@@ -413,7 +414,7 @@ public class Game {
 				Game.chooseCharacter(game, loggedInAccount);
 			}
 		} else {
-			// intefata total separata de cea pentru gameplay
+			gameType = false;
 			GameGUI gameGUI = new GameGUI();
 			gameGUI.createLoginGUI(accounts);
 		}

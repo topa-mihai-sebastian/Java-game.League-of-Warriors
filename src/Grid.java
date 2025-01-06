@@ -185,12 +185,25 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Apasa enter pentru a genera noua harta: ");
 		scanner.nextLine();
-		// aici fa niste upgrade-uri la caracter
+	
 
 		Random rd = new Random();
 
 		int width = rd.nextInt(7) + 4;
 		int height = rd.nextInt(7) + 4;
+		Game.currentCharacter.setCurrentHealth(100);
+		Game.currentCharacter.setCurrentMana(1000);
+		Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.1));
+		Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.1));
+		Game.currentCharacter.setCharisma((int) (Game.currentCharacter.getCharisma() * 1.1));
+		Game.gameGrid = createTheGrid(width, height, Game.currentCharacter);
+	}
+
+	public void useGUIPortal() {
+		Random rd = new Random();
+		int width = rd.nextInt(7) + 4;
+		int height = rd.nextInt(7) + 4;
+
 		Game.currentCharacter.setCurrentHealth(100);
 		Game.currentCharacter.setCurrentMana(1000);
 		Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.1));
@@ -231,8 +244,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			Game.currentCharacter.manaRegen(bonus);
 		}
 
-		if (aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
+		}
+		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -268,8 +284,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if (aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
+		}
+		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -305,8 +324,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if (aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
+		}
+		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -342,8 +364,11 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 			;
 			Game.currentCharacter.manaRegen(bonus);
 		}
-		if (aux == Entity.CellEntityType.PORTAL) {
+		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
+		}
+		else if(aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
+			useGUIPortal();
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
