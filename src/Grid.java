@@ -208,22 +208,6 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		Game.gameGrid = createTheGrid(width, height, Game.currentCharacter);
 	}
 
-	public void useGUIPortal() {
-		Random rd = new Random();
-		int width = rd.nextInt(7) + 4;
-		int height = rd.nextInt(7) + 4;
-		
-		GameGUI.gridPanel = new JPanel();
-		GameGUI.gridPanel.setLayout(new GridLayout(width, height));
-		GameGUI.gameFrame.add(GameGUI.gridPanel, BorderLayout.CENTER);
-		Game.currentCharacter.setCurrentHealth(100);
-		Game.currentCharacter.setCurrentMana(1000);
-		Game.currentCharacter.setStrength((int) (Game.currentCharacter.getStrength() * 1.1));
-		Game.currentCharacter.setDexterity((int) (Game.currentCharacter.getDexterity() * 1.1));
-		Game.currentCharacter.setCharisma((int) (Game.currentCharacter.getCharisma() * 1.1));
-		Game.gameGrid = createTheGrid(width, height, Game.currentCharacter);
-	}
-
 	public boolean goNorth() throws Exception {
 		int row = currentCell.getOx();
 		int col = currentCell.getOy();
@@ -259,7 +243,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
 		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
-			useGUIPortal();
+			Game.onPortal = true;
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -298,7 +282,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
 		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
-			useGUIPortal();
+			Game.onPortal = true;
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -337,7 +321,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
 		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
-			useGUIPortal();
+			Game.onPortal = true;
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}
@@ -376,7 +360,7 @@ public class Grid extends ArrayList<ArrayList<Cell>> {
 		if (aux == Entity.CellEntityType.PORTAL && Game.gameType) {
 			usePortal();
 		} else if (aux == Entity.CellEntityType.PORTAL && !Game.gameType) {
-			useGUIPortal();
+			Game.onPortal = true;
 		}
 		return aux == Entity.CellEntityType.ENEMY;
 	}

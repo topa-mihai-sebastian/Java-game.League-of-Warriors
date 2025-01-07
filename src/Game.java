@@ -16,6 +16,7 @@ public class Game {
 	public static Character currentCharacter;
 	public static Enemy currentEnemy;
 	public static boolean onSanctuary;
+	public static boolean onPortal;
 	private static Game game;
 	public static boolean gameType;
 	public static JFrame loginFrame;
@@ -398,6 +399,7 @@ public class Game {
 		Scanner scanner = new Scanner(System.in);
 		game = Game.getInstance();
 		Game.onSanctuary = false;
+		onPortal = false;
 		ArrayList<Account> accounts = createAccounts();
 		System.out.println("1. CLI");
 		System.out.println("2. GUI");

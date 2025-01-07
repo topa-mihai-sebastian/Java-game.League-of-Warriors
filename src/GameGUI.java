@@ -99,19 +99,35 @@ public class GameGUI {
 		manaLabel.setText("Mana: " + Game.currentCharacter.getCurrentMana());
 	}
 
+	public void recreateGameFrame(int newWidth, int newHeight) {
+		gameFrame.dispose(); // Închide fereastra curentă
+		Game.gameGrid = Grid.createTheGrid(newWidth, newHeight, Game.currentCharacter); // Creează un nou grid cu dimensiunile specificate
+		createGameGUI(); // Reinitializează fereastra jocului
+	}
+
+	private void usePortal() {
+		Game.onPortal = false;
+		Random rd = new Random();
+		int width = rd.nextInt(7) + 4;
+		int height = rd.nextInt(7) + 4;
+		recreateGameFrame(width, height); // Specifică noile dimensiuni ale gridului
+	}
+
 	public void createGameGUI() {
 		gameFrame = new JFrame("League of Warriors - Game");
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(1200, 1000);
 		gameFrame.setLayout(new BorderLayout());
-
+	
 		// Panel pentru grid
 		gridPanel = new JPanel();
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
+		gridPanel.setBackground(Color.LIGHT_GRAY); // Setează fundalul colorat al gridPanel
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
 		
-		// detalii despre jucator
+		// detalii despre jucător
 		JPanel playerInfoPanel = new JPanel();
+		playerInfoPanel.setBackground(Color.LIGHT_GRAY);
 		playerInfoPanel.setLayout(new GridLayout(1, 6)); // 6 rânduri pentru informațiile suplimentare
 		JLabel characterName = new JLabel("Profession: " + Game.currentCharacter.getProfession());
 		JLabel healthLabel = new JLabel("Health: " + Game.currentCharacter.getCurrentHealth());
@@ -123,15 +139,14 @@ public class GameGUI {
 		playerInfoPanel.add(healthLabel);
 		playerInfoPanel.add(manaLabel);
 		playerInfoPanel.add(strengthLabel);
-		playerInfoPanel.add(strengthLabel);
 		playerInfoPanel.add(dexterityLabel);
 		playerInfoPanel.add(charismaLabel);
 		gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
-
+	
 		// Panel pentru butoanele de mișcare
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(2, 2));
-
+	
 		JButton northButton = new JButton("Go North");
 		northButton.addActionListener(new ActionListener() {
 			@Override
@@ -139,6 +154,10 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goNorth()) {
 						createBattleGUI();
+					}
+					if(Game.onPortal) {
+						usePortal();
+						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -148,7 +167,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(northButton);
-
+	
 		JButton southButton = new JButton("Go South");
 		southButton.addActionListener(new ActionListener() {
 			@Override
@@ -156,6 +175,10 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goSouth()) {
 						createBattleGUI();
+					}
+					if(Game.onPortal) {
+						usePortal();
+						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -165,7 +188,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(southButton);
-
+	
 		JButton eastButton = new JButton("Go East");
 		eastButton.addActionListener(new ActionListener() {
 			@Override
@@ -173,6 +196,10 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goEast()) {
 						createBattleGUI();
+					}
+					if(Game.onPortal) {
+						usePortal();
+						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -182,7 +209,7 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(eastButton);
-
+	
 		JButton westButton = new JButton("Go West");
 		westButton.addActionListener(new ActionListener() {
 			@Override
@@ -190,6 +217,10 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goWest()) {
 						createBattleGUI();
+					}
+					if(Game.onPortal) {
+						usePortal();
+						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
@@ -199,11 +230,11 @@ public class GameGUI {
 			}
 		});
 		controlPanel.add(westButton);
-
+	
 		gameFrame.add(controlPanel, BorderLayout.SOUTH);
-
+	
 		updateGrid(); // Inițializează grid-ul la început
-
+	
 		gameFrame.setVisible(true);
 	}
 
