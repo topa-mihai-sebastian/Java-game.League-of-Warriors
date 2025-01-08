@@ -341,6 +341,7 @@ public class GameGUI {
 							"You have lost the game. Your character has no health left.", "Game Over",
 							JOptionPane.INFORMATION_MESSAGE);
 					gameFrame.dispose();
+					createCharacterSelectionGUI();
 				}
 			}
 		});
