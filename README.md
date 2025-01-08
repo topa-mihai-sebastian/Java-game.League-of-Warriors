@@ -1,7 +1,15 @@
-TOPA MIHAI-SEBASTIAN 323CC
+# TOPA MIHAI-SEBASTIAN 323CC
 
-Timp alocat: aproximativ 7 zile
-Dificultatea temei a fost medie, fiind doar mult de scris.
-Asa am invatat cum sa lucrez cu mai multe clase implicate in acelasi program.
+## Partea 1
 
-https://github.com/topa-mihai-sebastian/Java-game.League-of-Warriors
+- **Timp alocat**: aproximativ 7 zile.
+- **Dificultatea temei**: medie, fiind doar mult de scris.
+- **Ce am învățat**: cum să lucrez cu mai multe clase implicate în același program.
+
+## Partea 2
+
+- **Timp alocat**: aproximativ 14 zile.
+- **Dificultatea temei**: mai ușoară, deoarece aveam fundația deja implementată.
+- **Ce am învățat**: multe despre design patterns și cum să fac o interfață grafică minimalistă.
+
+[Proiect pe GitHub](https://github.com/topa-mihai-sebastian/Java-game.League-of-Warriors)

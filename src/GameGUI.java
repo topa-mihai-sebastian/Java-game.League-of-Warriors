@@ -30,7 +30,7 @@ public class GameGUI {
 		loginFrame.add(emailField);
 		loginFrame.add(passwordLabel);
 		loginFrame.add(passwordField);
-		loginFrame.add(new JLabel()); // pt ca butonul de login sa fie fix sub 
+		loginFrame.add(new JLabel()); // pt ca butonul de login sa fie fix sub
 		loginFrame.add(loginButton);
 
 		loginButton.addActionListener(new ActionListener() {
@@ -94,15 +94,18 @@ public class GameGUI {
 		loginFrame.setVisible(true);
 	}
 
-	private void updatePlayerInfo(JLabel healthLabel, JLabel manaLabel) {
+	private void updatePlayerInfo(JLabel healthLabel, JLabel manaLabel, JLabel strengthLabel, JLabel dexterityLabel, JLabel charismaLabel) {
 		healthLabel.setText("Health: " + Game.currentCharacter.getCurrentHealth());
 		manaLabel.setText("Mana: " + Game.currentCharacter.getCurrentMana());
+		strengthLabel.setText("Strength: " + Game.currentCharacter.getStrength());
+		dexterityLabel.setText("Dexterity: " + Game.currentCharacter.getDexterity());
+		charismaLabel.setText("Charisma: " + Game.currentCharacter.getCharisma());
 	}
 
 	public void recreateGameFrame(int newWidth, int newHeight) {
 		gameFrame.dispose(); // Închide fereastra curentă
-		Game.gameGrid = Grid.createTheGrid(newWidth, newHeight, Game.currentCharacter); // Creează un nou grid cu dimensiunile specificate
-		createGameGUI(); // Reinitializează fereastra jocului
+		Game.gameGrid = Grid.createTheGrid(newWidth, newHeight, Game.currentCharacter); 
+		createGameGUI();
 	}
 
 	private void usePortal() {
@@ -110,6 +113,7 @@ public class GameGUI {
 		Random rd = new Random();
 		int width = rd.nextInt(7) + 4;
 		int height = rd.nextInt(7) + 4;
+		Game.currentCharacter.setCurrentHealth(100);
 		recreateGameFrame(width, height); // Specifică noile dimensiuni ale gridului
 	}
 
@@ -118,13 +122,13 @@ public class GameGUI {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(1200, 1000);
 		gameFrame.setLayout(new BorderLayout());
-	
+
 		// Panel pentru grid
 		gridPanel = new JPanel();
 		gridPanel.setLayout(new GridLayout(Game.gameGrid.getHeight(), Game.gameGrid.getWidth()));
 		gridPanel.setBackground(Color.LIGHT_GRAY); // Setează fundalul colorat al gridPanel
 		gameFrame.add(gridPanel, BorderLayout.CENTER);
-		
+
 		// detalii despre jucător
 		JPanel playerInfoPanel = new JPanel();
 		playerInfoPanel.setBackground(Color.LIGHT_GRAY);
@@ -142,11 +146,11 @@ public class GameGUI {
 		playerInfoPanel.add(dexterityLabel);
 		playerInfoPanel.add(charismaLabel);
 		gameFrame.add(playerInfoPanel, BorderLayout.NORTH);
-	
+
 		// Panel pentru butoanele de mișcare
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new GridLayout(2, 2));
-	
+
 		JButton northButton = new JButton("Go North");
 		northButton.addActionListener(new ActionListener() {
 			@Override
@@ -154,20 +158,22 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goNorth()) {
 						createBattleGUI();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 					}
-					if(Game.onPortal) {
+					if (Game.onPortal) {
 						usePortal();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
-				updatePlayerInfo(healthLabel, manaLabel);
+				updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 			}
 		});
 		controlPanel.add(northButton);
-	
+
 		JButton southButton = new JButton("Go South");
 		southButton.addActionListener(new ActionListener() {
 			@Override
@@ -175,20 +181,22 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goSouth()) {
 						createBattleGUI();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 					}
-					if(Game.onPortal) {
+					if (Game.onPortal) {
 						usePortal();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
-				updatePlayerInfo(healthLabel, manaLabel);
+				updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 			}
 		});
 		controlPanel.add(southButton);
-	
+
 		JButton eastButton = new JButton("Go East");
 		eastButton.addActionListener(new ActionListener() {
 			@Override
@@ -196,20 +204,22 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goEast()) {
 						createBattleGUI();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 					}
-					if(Game.onPortal) {
+					if (Game.onPortal) {
 						usePortal();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
-				updatePlayerInfo(healthLabel, manaLabel);
+				updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 			}
 		});
 		controlPanel.add(eastButton);
-	
+
 		JButton westButton = new JButton("Go West");
 		westButton.addActionListener(new ActionListener() {
 			@Override
@@ -217,24 +227,26 @@ public class GameGUI {
 				try {
 					if (Game.gameGrid.goWest()) {
 						createBattleGUI();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 					}
-					if(Game.onPortal) {
+					if (Game.onPortal) {
 						usePortal();
+						updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 						return;
 					}
 					updateGrid();
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(gameFrame, ex.getMessage());
 				}
-				updatePlayerInfo(healthLabel, manaLabel);
+				updatePlayerInfo(healthLabel, manaLabel, strengthLabel, dexterityLabel, charismaLabel);
 			}
 		});
 		controlPanel.add(westButton);
-	
+
 		gameFrame.add(controlPanel, BorderLayout.SOUTH);
-	
+
 		updateGrid(); // Inițializează grid-ul la început
-	
+
 		gameFrame.setVisible(true);
 	}
 
@@ -375,7 +387,10 @@ public class GameGUI {
 			JOptionPane.showMessageDialog(battleFrame, "Enemy defeated!");
 			battleFrame.dispose();
 			Game.currentCharacter.spells = Game.generateRandomSpells();
-			// Game.currentCharacter.setCurrentHealth(100);
+			Game.currentCharacter.Charisma *= 1.3;
+			Game.currentCharacter.Strength *= 1.3;
+			Game.currentCharacter.Dexterity *= 1.3;
+			Game.currentCharacter.setCurrentMana(1000);
 		} else if (Game.currentCharacter.getCurrentHealth() <= 0) {
 			JOptionPane.showMessageDialog(battleFrame, "You have been defeated!");
 			battleFrame.dispose();
